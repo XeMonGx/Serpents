@@ -1,6 +1,7 @@
 package Vue.Game;
 
 import Controller.MouseMotionHandler;
+import Vue.Background.BackgroundTile;
 import Vue.Entity.Snake.Snake;
 
 import javax.swing.*;
@@ -14,6 +15,7 @@ public class GamePanel extends JPanel implements Runnable {
     private int screenWidth = 1200;
     private int screenHeight = 800;
     private Thread thread;
+    private BackgroundTile backgroundTile;
     private Snake snake;
     private MouseMotionHandler mouseMotionHandler = new MouseMotionHandler();
 
@@ -24,6 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.addMouseMotionListener(mouseMotionHandler);
         this.setFocusable(true);
 
+        this.backgroundTile = new BackgroundTile(this);
         this.snake = new Snake(this);
     }
 
@@ -59,10 +62,11 @@ public class GamePanel extends JPanel implements Runnable {
         snake.update();
     }
 
+    @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-
+        backgroundTile.draw(g2);
         snake.draw(g2);
 
         g2.dispose();
@@ -78,5 +82,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     public MouseMotionHandler getMouseMotionHandler() {
         return mouseMotionHandler;
+    }
+
+    public Snake getSnake() {
+        return snake;
     }
 }
