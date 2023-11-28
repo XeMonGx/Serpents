@@ -7,16 +7,15 @@ import static Controller.Direction.*;
 
 public class MouseMotionHandler implements MouseMotionListener {
 
-    private Direction directionX;
-    private Direction directionY;
+    private int x, y;
 
     public MouseMotionHandler(){
         init();
     }
 
     public void init(){
-        directionX = LEFT;
-        directionY = DOWN;
+        x = 0;
+        y = 0;
     }
 
     @Override
@@ -26,23 +25,15 @@ public class MouseMotionHandler implements MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if ((e.getX()-600) < 0){
-            directionX = LEFT;
-        }else{
-            directionX = RIGHT;
-        }
-        if ((e.getY() - 400) < 0){
-            directionY = DOWN;
-        }else{
-            directionY = UP;
-        }
+        x = e.getX();
+        y = e.getY();
     }
 
-    public Direction getDirectionX() {
-        return directionX;
+    public int getX() {
+        return x;
     }
 
-    public Direction getDirectionY() {
-        return directionY;
+    public int getY() {
+        return y;
     }
 }

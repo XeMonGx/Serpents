@@ -31,6 +31,28 @@ public class Snake{
 
     public void update(){
 
+        int mousePosX = gamePanel.getMouseMotionHandler().getX();
+        int mousePosY = gamePanel.getMouseMotionHandler().getY();
+
+        int worldPosX = mousePosX - screenX + worldX;
+        int worldPosY = mousePosY - screenY + worldY;
+
+        int distPosX = worldPosX - worldX;
+        int distPosY = worldPosY - worldY;
+
+        double vecteur = Math.sqrt(Math.pow(distPosX, 2) + Math.pow(distPosY, 2));
+
+        double movPosX = distPosX / vecteur;
+        double movPosY = distPosY / vecteur;
+
+        worldX += movPosX * speed;
+        worldY += movPosY * speed;
+
+
+
+        /**
+        /// pour le clavier
+
         switch (gamePanel.getMouseMotionHandler().getDirectionX()){
             case RIGHT :
                 this.worldX += speed;
@@ -48,6 +70,7 @@ public class Snake{
                 this.worldY += speed;
                 break;
         }
+         */
     }
 
     public void draw(Graphics2D g2){
