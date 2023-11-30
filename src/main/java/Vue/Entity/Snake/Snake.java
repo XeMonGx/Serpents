@@ -6,48 +6,69 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Snake{
 
-    private BufferedImage head;
-    private int worldX, worldY;
-    private final int screenX, screenY;
+    private List<Point> snakeBody;
+    private BufferedImage headImage;
+    private Point worldPos;
+    private int headSize;
     private int speed;
     private GamePanel gamePanel;
 
     public Snake(GamePanel gamePanel){
+        this.snakeBody = new ArrayList<>();
         this.gamePanel = gamePanel;
-        this.screenX = gamePanel.getScreenWidth()/2;
-        this.screenY = gamePanel.getScreenHeight()/2;
         initValue();
     }
 
     public void initValue(){
         getHeadImage();
+        snakeBody.clear();
+        worldPos = new Point(0, 0);
+        snakeBody.add(new Point(worldPos.x / 2, worldPos.y / 2));
+        this.headSize = 32;
         this.speed = 2;
-        this.worldX = 0;
-        this.worldY = 0;
     }
 
     public void update(){
 
-        int mousePosX = gamePanel.getMouseMotionHandler().getX();
-        int mousePosY = gamePanel.getMouseMotionHandler().getY();
+        int mouseX = gamePanel.getMouseMotionHandler().getX();
+        int mouseY = gamePanel.getMouseMotionHandler().getY();
 
-        int worldPosX = mousePosX - screenX + worldX;
-        int worldPosY = mousePosY - screenY + worldY;
+        // Calculer les déplacements horizontaux et verticaux nécessaires
+        int deltaX = mouseX - worldPos.x;
+        int deltaY = mouseY - worldPos.y;
 
-        int distPosX = worldPosX - worldX;
-        int distPosY = worldPosY - worldY;
+        // Calculer la distance totale
+        double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
-        double vecteur = Math.sqrt(Math.pow(distPosX, 2) + Math.pow(distPosY, 2));
+        // Calculer les déplacements fractionnaires nécessaires pour atteindre la vitesse constante
+        double fractionX =  deltaX / distance;
+        double fractionY =  deltaY / distance;
 
-        double movPosX = distPosX / vecteur;
-        double movPosY = distPosY / vecteur;
+        // Mettre à jour la position du serpent avec les déplacements fractionnaires
+        worldPos.x += speed * fractionX;
+        worldPos.y += speed * fractionY;
 
-        worldX += movPosX * speed;
-        worldY += movPosY * speed;
+        snakeBody.set(0, worldPos);
 
+        if (gamePanel.getKeyHandler().count % 5 == 0){
+            gamePanel.getKeyHandler().count = 1;
+            Point startPos = new Point((int) fractionX * -1 * headSize + worldPos.x + 10, (int) fractionY * -1 * headSize + worldPos.y );
+            snakeBody.add(startPos);
+        }
+
+        // Mettez à jour la position du reste du corps
+        for (int i = snakeBody.size() - 1; i > 0; i--) {
+            Point currentSegment = snakeBody.get(i);
+            Point previousSegment = snakeBody.get(i - 1);
+
+            // Déplacez chaque segment avec un espace entre les segments
+            currentSegment.setLocation(previousSegment.x, previousSegment.y);
+        }
 
 
         /**
@@ -74,30 +95,16 @@ public class Snake{
     }
 
     public void draw(Graphics2D g2){
-        g2.drawImage(head, screenX, screenY, 32, 32, null);
+        for (Point segment : snakeBody) {
+            g2.drawImage(headImage, segment.x, segment.y, headSize, headSize, null);
+        }
     }
 
     public void getHeadImage(){
         try {
-            head = ImageIO.read(getClass().getResourceAsStream("/Snake/circle.png"));
+            headImage = ImageIO.read(getClass().getResourceAsStream("/Snake/circle.png"));
         }catch (IOException e){
             e.printStackTrace();
         }
-    }
-
-    public int getScreenX() {
-        return screenX;
-    }
-
-    public int getScreenY() {
-        return screenY;
-    }
-
-    public int getWorldX() {
-        return worldX;
-    }
-
-    public int getWorldY() {
-        return worldY;
     }
 }

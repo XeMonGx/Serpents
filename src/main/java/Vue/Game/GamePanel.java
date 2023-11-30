@@ -1,5 +1,6 @@
 package Vue.Game;
 
+import Controller.KeyHandler;
 import Controller.MouseMotionHandler;
 import Vue.Background.BackgroundTile;
 import Vue.Entity.Snake.Snake;
@@ -18,11 +19,13 @@ public class GamePanel extends JPanel implements Runnable {
     private BackgroundTile backgroundTile;
     private Snake snake;
     private MouseMotionHandler mouseMotionHandler = new MouseMotionHandler();
+    private KeyHandler keyHandler = new KeyHandler();
 
     public GamePanel(){
         this.setBackground(Color.black);
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setDoubleBuffered(true);
+        this.addKeyListener(keyHandler);
         this.addMouseMotionListener(mouseMotionHandler);
         this.setFocusable(true);
 
@@ -82,6 +85,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     public MouseMotionHandler getMouseMotionHandler() {
         return mouseMotionHandler;
+    }
+
+    public KeyHandler getKeyHandler() {
+        return keyHandler;
     }
 
     public Snake getSnake() {

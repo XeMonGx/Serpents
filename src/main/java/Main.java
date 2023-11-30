@@ -1,7 +1,4 @@
 import Vue.Game.GameLauncher;
-import Vue.Game.GamePanel;
-
-import javax.swing.*;
 
 public class Main {
 
