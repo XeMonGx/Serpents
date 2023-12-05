@@ -8,8 +8,6 @@ import Vue.Entity.Snake.Snake;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -21,7 +19,7 @@ public class GamePanel extends JPanel implements Runnable {
     private Snake snake;
     private MouseMotionHandler mouseMotionHandler = new MouseMotionHandler();
     private KeyHandler keyHandler = new KeyHandler();
-    private Food food = new Food(10);
+    private Food food = new Food();
 
     public GamePanel(){
         this.setBackground(Color.black);
@@ -95,5 +93,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     public Snake getSnake() {
         return snake;
+    }
+
+    public Food getFood() {
+        return food;
     }
 }

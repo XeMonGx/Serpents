@@ -1,49 +1,49 @@
 package Vue.Entity.Snake;
 
+import Controller.FoodGenerate;
+
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Food {
 
+    private List<FoodGenerate> food;
     private int nb_food;
-    private List<Point> food;
-    private final int nbImage = 10;
-    private int size;
 
-    public Food(int nb_food){
-        this.nb_food = nb_food;
-        this.food = new ArrayList<>();
-        this.init();
+    public Food(){
+        init();
     }
 
     public void init(){
-        this.size = 15;
+        food = new ArrayList<>();
+        nb_food = 50;
         for (int i=0;i<nb_food;i++){
-            int x = new Random().nextInt(400);
-            int y = new Random().nextInt(600);
-
-            this.food.add(new Point(x, y));
+            food.add(new FoodGenerate());
         }
     }
 
     public void draw(Graphics2D g2){
-        for (Point f : food) {
-            Color couleur = Color.BLUE;
-            g2.setColor(couleur);
+        for (FoodGenerate f : food){
+            g2.setColor(f.getColor());
 
             // Générer des positions aléatoires pour les cercles
-            int x = f.x;
-            int y = f.y;
+            int x = f.getPos().x;
+            int y = f.getPos().y;
 
             // Générer un rayon aléatoire pour les cercles
-            int rayon = size;
+            int rayon = f.getSize();
 
             // Dessiner le cercle
             g2.fillOval(x, y, rayon, rayon);
         }
     }
 
+    public void addFood(int i){
+        food.get(i).setPos();
+    }
+
+    public List<FoodGenerate> getFood() {
+        return food;
+    }
 }

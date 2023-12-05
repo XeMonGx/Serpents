@@ -1,5 +1,6 @@
 package Vue.Entity.Snake;
 
+import Controller.FoodGenerate;
 import Vue.Game.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -16,6 +17,7 @@ public class Snake{
     private Point worldPos;
     private int headSize;
     private int speed;
+    private int exp;
     private GamePanel gamePanel;
 
     public Snake(GamePanel gamePanel){
@@ -31,6 +33,7 @@ public class Snake{
         snakeBody.add(new Point(worldPos.x / 2, worldPos.y / 2));
         this.headSize = 32;
         this.speed = 2;
+        this.exp = 1;
     }
 
     public void update(){
@@ -55,8 +58,21 @@ public class Snake{
 
         snakeBody.set(0, worldPos);
 
-        if (gamePanel.getKeyHandler().count % 5 == 0){
-            gamePanel.getKeyHandler().count = 1;
+        for (int i=0;i<gamePanel.getFood().getFood().size();i++){
+            FoodGenerate f = gamePanel.getFood().getFood().get(i);
+            int headX = worldPos.x;
+            int headY = worldPos.y;
+            int foodX = f.getPos().x;
+            int foodY = f.getPos().y;
+
+            if(headX < foodX + 30 && headX + 30 > foodX && headY < foodY + 30 && headY + 30 > foodY){
+                exp += f.getSize();
+                gamePanel.getFood().addFood(i);
+            }
+        }
+
+        if (exp % 10 == 0){
+            exp = 1;
             Point startPos = new Point(
                     (int) fractionX * -1 * headSize + worldPos.x + 10,
                     (int) fractionY * -1 * headSize + worldPos.y
@@ -65,12 +81,24 @@ public class Snake{
         }
 
         // Mettez à jour la position du reste du corps
-        for (int i = snakeBody.size() - 1; i > 0; i--) {
-            Point currentSegment = snakeBody.get(i);
-            Point previousSegment = snakeBody.get(i - 1);
+        double gap = 10;
 
-            // Déplacez chaque segment avec un espace entre les segments
-            currentSegment.setLocation(previousSegment.x, previousSegment.y);
+        for (int i = 1; i < snakeBody.size(); i++) {
+            Point current = snakeBody.get(i);
+            Point prev = snakeBody.get(i - 1);
+
+            double distanceX = prev.getX() - current.getX();
+            double distanceY = prev.getY() - current.getY();
+
+            double vec = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+            if (vec > gap) {
+                double movementX = distanceX / vec;
+                double movementY = distanceY / vec;
+
+                current.x = (int) (current.getX() + movementX * (vec - gap));
+                current.y = (int) (current.getY() + movementY * (vec - gap));
+            }
         }
 
         /**
