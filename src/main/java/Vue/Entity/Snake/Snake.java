@@ -57,7 +57,10 @@ public class Snake{
 
         if (gamePanel.getKeyHandler().count % 5 == 0){
             gamePanel.getKeyHandler().count = 1;
-            Point startPos = new Point((int) fractionX * -1 * headSize + worldPos.x + 10, (int) fractionY * -1 * headSize + worldPos.y );
+            Point startPos = new Point(
+                    (int) fractionX * -1 * headSize + worldPos.x + 10,
+                    (int) fractionY * -1 * headSize + worldPos.y
+            );
             snakeBody.add(startPos);
         }
 
@@ -69,7 +72,6 @@ public class Snake{
             // Déplacez chaque segment avec un espace entre les segments
             currentSegment.setLocation(previousSegment.x, previousSegment.y);
         }
-
 
         /**
         /// pour le clavier
