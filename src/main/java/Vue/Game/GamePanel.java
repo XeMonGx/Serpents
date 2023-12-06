@@ -3,8 +3,8 @@ package Vue.Game;
 import Controller.KeyHandler;
 import Controller.MouseMotionHandler;
 import Vue.Background.BackgroundTile;
-import Vue.Entity.Snake.Food;
-import Vue.Entity.Snake.Snake;
+import Vue.Entity.Snake.Foods;
+import Vue.Entity.Snake.SnakeGraphics;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,10 +16,10 @@ public class GamePanel extends JPanel implements Runnable {
     private int screenHeight = 800;
     private Thread thread;
     private BackgroundTile backgroundTile;
-    private Snake snake;
+    private SnakeGraphics snake;
     private MouseMotionHandler mouseMotionHandler = new MouseMotionHandler();
     private KeyHandler keyHandler = new KeyHandler();
-    private Food food = new Food();
+    private Foods food = new Foods();
 
     public GamePanel(){
         this.setBackground(Color.black);
@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
 
         this.backgroundTile = new BackgroundTile(this);
-        this.snake = new Snake(this);
+        this.snake = new SnakeGraphics(this);
     }
 
     public void startGame(){
@@ -91,11 +91,11 @@ public class GamePanel extends JPanel implements Runnable {
         return keyHandler;
     }
 
-    public Snake getSnake() {
+    public SnakeGraphics getSnake() {
         return snake;
     }
 
-    public Food getFood() {
+    public Foods getFood() {
         return food;
     }
 }

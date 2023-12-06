@@ -1,4 +1,4 @@
-package Controller;
+package Controller.Entity.Food;
 
 import java.awt.*;
 import java.util.Random;

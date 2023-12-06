@@ -1,5 +1,6 @@
 package Controller;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
@@ -7,15 +8,10 @@ import static Controller.Direction.*;
 
 public class MouseMotionHandler implements MouseMotionListener {
 
-    private int x, y;
+    private Point mousePos;
 
     public MouseMotionHandler(){
-        init();
-    }
-
-    public void init(){
-        x = 0;
-        y = 0;
+        this.mousePos = new Point();
     }
 
     @Override
@@ -25,15 +21,11 @@ public class MouseMotionHandler implements MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        x = e.getX();
-        y = e.getY();
+        this.mousePos.x = e.getX();
+        this.mousePos.y = e.getY();
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+    public Point getMousePos() {
+        return mousePos;
     }
 }

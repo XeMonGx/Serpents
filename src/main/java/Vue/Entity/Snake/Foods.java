@@ -1,17 +1,17 @@
 package Vue.Entity.Snake;
 
-import Controller.FoodGenerate;
+import Controller.Entity.Food.FoodGenerate;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Food {
+public class Foods {
 
     private List<FoodGenerate> food;
     private int nb_food;
 
-    public Food(){
+    public Foods(){
         init();
     }
 
