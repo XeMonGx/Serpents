@@ -23,8 +23,8 @@ public class SnakeBody extends Segment{
             double movementX = distanceX / vec;
             double movementY = distanceY / vec;
 
-            int newPosX = (int) (this.getPosition().x + movementX * (vec - this.getGap()));
-            int newPosY = (int) (this.getPosition().y + movementY * (vec - this.getGap()));
+            int newPosX = (int) Math.round(this.getPosition().x + movementX * (vec - this.getGap()));
+            int newPosY = (int) Math.round(this.getPosition().y + movementY * (vec - this.getGap()));
 
             this.setPosition(newPosX, newPosY);
         }

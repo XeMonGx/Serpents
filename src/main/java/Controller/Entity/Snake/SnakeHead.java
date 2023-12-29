@@ -24,8 +24,8 @@ public class SnakeHead extends Segment{
         double fractionY =  deltaY / distance;
 
         // Mettre à jour la position du serpent avec les déplacements fractionnaires
-        int newPosX = (int) (this.getPosition().x + getSpeed() * fractionX);
-        int newPosY = (int) (this.getPosition().y + getSpeed() * fractionY);
+        int newPosX = (int) Math.round(this.getPosition().x + getSpeed() * fractionX);
+        int newPosY = (int) Math.round(this.getPosition().y + getSpeed() * fractionY);
 
         this.setPosition(newPosX, newPosY);
     }

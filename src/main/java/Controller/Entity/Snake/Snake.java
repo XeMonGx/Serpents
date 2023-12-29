@@ -41,16 +41,27 @@ public class Snake {
     }
 
     public void update(){
+        
+        System.out.println("test");
+        Point tmp = new Point();
         for (int i=0;i<snake.size();i++){
             if(snake.get(i) instanceof SnakeHead){
+                snake.get(i).copy(tmp);
+                //System.out.println("Atete " + tmp.x + " " + tmp.y);
                 snake.get(i).move(gamePanel.getMouseMotionHandler().getMousePos());
+                System.out.println("Ntete " + snake.get(i).getPosition().x + " " + snake.get(i).getPosition().y);
+                //System.out.println("Atete2 " + tmp.x + " " + tmp.y);
             }else{
-                snake.get(i).move(snake.get(i-1).getPosition());
+                Point tmp2 = new Point();
+                snake.get(i).copy(tmp2);
+                snake.get(i).move(tmp);
+                tmp = tmp2;
+                System.out.println("corps " + snake.get(i).getPosition().x + " " + snake.get(i).getPosition().y);
             }
         }
 
         eatFood();
-        grow();
+        grow(tmp);
     }
 
     /**
@@ -75,11 +86,11 @@ public class Snake {
         }
     }
 
-    public void grow(){
+    public void grow(Point pos){
         if (exp > 10) {
             exp = 0;
-            Point startPos = new Point(snake.get(snake.size()-1).getPosition());
-            snake.add(new SnakeBody(startPos, size, speed, color));
+            Point startPos = new Point(pos.x, pos.y);
+            snake.add(new SnakeBody(startPos, size, speed, color)); 
         }
     }
 

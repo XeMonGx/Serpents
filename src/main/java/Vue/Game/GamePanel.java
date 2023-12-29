@@ -17,7 +17,7 @@ public class GamePanel extends JPanel implements Runnable {
     private Thread thread;
     private BackgroundTile backgroundTile;
     private SnakeGraphics snake;
-    private MouseMotionHandler mouseMotionHandler = new MouseMotionHandler();
+    private MouseMotionHandler mouseMotionHandler = new MouseMotionHandler(this);
     private KeyHandler keyHandler = new KeyHandler();
     private Foods food = new Foods();
 

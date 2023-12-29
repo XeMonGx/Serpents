@@ -54,4 +54,9 @@ public abstract class Segment {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
+
+    public void copy(Point tmp){
+        tmp.x = position.x;
+        tmp.y = position.y;
+    }
 }
