@@ -5,8 +5,6 @@ import java.util.List;
 
 public class SnakeBody extends Segment{
 
-    private List<Point> snakeBody;
-
     public SnakeBody(Point position, int size, int speed, Color color){
         super(position, size, speed, color);
     }

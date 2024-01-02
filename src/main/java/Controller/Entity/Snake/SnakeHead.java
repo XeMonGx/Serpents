@@ -4,7 +4,6 @@ import java.awt.*;
 
 public class SnakeHead extends Segment{
 
-
     public SnakeHead(Point position, int size, int speed, Color color){
         super(position, size, speed, color);
     }
@@ -19,14 +18,19 @@ public class SnakeHead extends Segment{
         // Calculer la distance totale
         double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
-        // Calculer les déplacements fractionnaires nécessaires pour atteindre la vitesse constante
-        double fractionX =  deltaX / distance;
-        double fractionY =  deltaY / distance;
+        // Vérifier si la distance totale est non nulle
+        if (distance != 0) {
+            // Calculer les déplacements fractionnaires nécessaires pour atteindre la vitesse constante
+            double fractionX = deltaX / distance;
+            double fractionY = deltaY / distance;
 
-        // Mettre à jour la position du serpent avec les déplacements fractionnaires
-        int newPosX = (int) Math.round(this.getPosition().x + getSpeed() * fractionX);
-        int newPosY = (int) Math.round(this.getPosition().y + getSpeed() * fractionY);
+            // Mettre à jour la position du serpent avec les déplacements fractionnaires
+            int newPosX = (int) Math.round(this.getPosition().x + getSpeed() * fractionX);
+            int newPosY = (int) Math.round(this.getPosition().y + getSpeed() * fractionY);
 
-        this.setPosition(newPosX, newPosY);
+            this.setPosition(newPosX, newPosY);
+        }
+        // Si la distance est nulle, le serpent est déjà à la position de la souris, aucune mise à jour nécessaire
+
     }
 }

@@ -9,8 +9,8 @@ public class SnakeGraphics {
 
     private Snake snake;
 
-    public SnakeGraphics(GamePanel gamePanel){
-        this.snake = new Snake(gamePanel);
+    public SnakeGraphics(Snake snake){
+        this.snake = snake;
     }
 
     public void update(){

@@ -28,7 +28,7 @@ public class Snake {
         this.exp = 0;
         this.color = genererCouleurAleatoire();
         this.size = 32;
-        this.speed = 2;
+        this.speed = 1;
 
         Random random = new Random();
         int posX = random.nextInt(1200);
@@ -101,5 +101,9 @@ public class Snake {
 
     public List<Segment> getSnake() {
         return snake;
+    }
+
+    public GamePanel getGamePanel() {
+        return gamePanel;
     }
 }
