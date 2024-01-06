@@ -35,7 +35,7 @@ public class AISnake extends Snake {
                 tmp = tmp2;
             }
         }
-
+        dead();
         eatFood();
         grow(tmp);
     }

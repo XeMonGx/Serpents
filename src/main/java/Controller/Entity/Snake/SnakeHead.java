@@ -5,7 +5,7 @@ import java.awt.*;
 public class SnakeHead extends Segment{
 
     public SnakeHead(Point position, int size, int speed, Color color){
-        super(position, size, speed, color);
+        super(position, size, speed, color, false);
     }
 
     @Override

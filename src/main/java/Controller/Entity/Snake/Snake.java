@@ -1,6 +1,7 @@
 package Controller.Entity.Snake;
 
 import Controller.Entity.Food.FoodGenerate;
+import Vue.Entity.Snake.SnakeGraphics;
 import Vue.Game.GamePanel;
 import java.awt.*;
 import java.util.ArrayList;
@@ -8,7 +9,6 @@ import java.util.List;
 import java.util.Random;
 
 public class Snake {
-
 
     private List<Segment> snake;
     private GamePanel gamePanel;
@@ -28,7 +28,7 @@ public class Snake {
         this.exp = 0;
         this.color = genererCouleurAleatoire();
         this.size = 32;
-        this.speed = 1;
+        this.speed = 2;
 
         Random random = new Random();
         int posX = random.nextInt(1200);
@@ -41,15 +41,14 @@ public class Snake {
     }
 
     public void update(){
-        
-        System.out.println("test");
+        //System.out.println("test");
         Point tmp = new Point();
         for (int i=0;i<snake.size();i++){
             if(snake.get(i) instanceof SnakeHead){
                 snake.get(i).copy(tmp);
                 //System.out.println("Atete " + tmp.x + " " + tmp.y);
                 snake.get(i).move(gamePanel.getMouseMotionHandler().getMousePos());
-                System.out.println("Ntete " + snake.get(i).getPosition().x + " " + snake.get(i).getPosition().y);
+                //System.out.println("Ntete " + snake.get(i).getPosition().x + " " + snake.get(i).getPosition().y);
                 //System.out.println("Atete2 " + tmp.x + " " + tmp.y);
             }else{
                 Point tmp2 = new Point();
@@ -59,7 +58,7 @@ public class Snake {
                 System.out.println("corps " + snake.get(i).getPosition().x + " " + snake.get(i).getPosition().y);
             }
         }
-
+        dead();
         eatFood();
         grow(tmp);
     }
@@ -91,6 +90,32 @@ public class Snake {
             exp = 0;
             Point startPos = new Point(pos.x, pos.y);
             snake.add(new SnakeBody(startPos, size, speed, color)); 
+        }
+    }
+
+    public boolean isCol(Segment segment){
+        int headPosX = snake.get(0).getPosition().x;
+        int headPosY = snake.get(0).getPosition().y;
+        if(segment.getCollision()){
+            return segment.getPosition().x + 10 >= headPosX && segment.getPosition().x - 10 <= headPosX
+                    && segment.getPosition().y + 10 >= headPosY && segment.getPosition().y - 10 <= headPosY;
+        }
+        return false;
+    }
+
+    public void dead(){
+        for(SnakeGraphics list_snake : this.gamePanel.getList_snake()){
+            int headPosX = snake.get(0).getPosition().x;
+            int headPosY = snake.get(0).getPosition().y;
+            int segPosX = list_snake.getSnake().getSnake().get(0).getPosition().x;
+            int segPosY = list_snake.getSnake().getSnake().get(0).getPosition().y;
+            Point direction = new Point(segPosX-headPosX, segPosY-headPosY);
+            double distance = Math.sqrt(direction.x * direction.x + direction.y * direction.y);
+            if(distance < 500 && distance != 0){
+                for (Segment segment : list_snake.getSnake().getSnake()){
+                    if (isCol(segment)) init();
+                }
+            }
         }
     }
 

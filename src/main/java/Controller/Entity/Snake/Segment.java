@@ -9,15 +9,17 @@ public abstract class Segment {
     private Point position;
     private int size;
     private int speed;
+    private boolean collision;
 
     private Color color;
     private final int gap = 10;
 
-    public Segment(Point position, int size, int speed, Color color){
+    public Segment(Point position, int size, int speed, Color color, boolean collision){
         this.position = position;
         this.size = size;
         this.speed = speed;
         this.color = color;
+        this.collision = collision;
     }
 
     public abstract void move(Point mousePos);
@@ -40,6 +42,10 @@ public abstract class Segment {
 
     public int getGap() {
         return gap;
+    }
+
+    public boolean getCollision(){
+        return collision;
     }
 
     public void setPosition(int x, int y) {

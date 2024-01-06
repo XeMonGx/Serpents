@@ -10,6 +10,7 @@ import Vue.Entity.Snake.SnakeGraphics;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -18,8 +19,7 @@ public class GamePanel extends JPanel implements Runnable {
     private int screenHeight = 800;
     private Thread thread;
     private BackgroundTile backgroundTile;
-    private SnakeGraphics snake;
-    private SnakeGraphics AISnake;
+    private ArrayList<SnakeGraphics> list_snake = new ArrayList<>();
     private MouseMotionHandler mouseMotionHandler = new MouseMotionHandler(this);
     private KeyHandler keyHandler = new KeyHandler();
     private Foods food = new Foods();
@@ -33,8 +33,9 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
 
         this.backgroundTile = new BackgroundTile(this);
-        this.snake = new SnakeGraphics(new Snake(this));
-        this.AISnake = new SnakeGraphics(new AISnake(this));
+        this.list_snake.add(new SnakeGraphics(new Snake(this)));
+        this.list_snake.add(new SnakeGraphics(new AISnake(this)));
+        this.list_snake.add(new SnakeGraphics(new AISnake(this)));
     }
 
     public void startGame(){
@@ -66,8 +67,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update(){
-        snake.update();
-        AISnake.update();
+        for (SnakeGraphics snake : list_snake){
+            snake.update();
+        }
     }
 
     @Override
@@ -75,8 +77,9 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         backgroundTile.draw(g2);
-        snake.draw(g2);
-        AISnake.draw(g2);
+        for (SnakeGraphics snake : list_snake){
+            snake.draw(g2);
+        }
         food.draw(g2);
         g2.dispose();
     }
@@ -93,12 +96,8 @@ public class GamePanel extends JPanel implements Runnable {
         return mouseMotionHandler;
     }
 
-    public KeyHandler getKeyHandler() {
-        return keyHandler;
-    }
-
-    public SnakeGraphics getSnake() {
-        return snake;
+    public ArrayList<SnakeGraphics> getList_snake() {
+        return list_snake;
     }
 
     public Foods getFood() {

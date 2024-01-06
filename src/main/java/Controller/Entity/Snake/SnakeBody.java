@@ -6,7 +6,7 @@ import java.util.List;
 public class SnakeBody extends Segment{
 
     public SnakeBody(Point position, int size, int speed, Color color){
-        super(position, size, speed, color);
+        super(position, size, speed, color, true);
     }
 
     @Override

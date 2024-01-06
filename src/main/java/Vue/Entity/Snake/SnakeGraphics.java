@@ -32,4 +32,8 @@ public class SnakeGraphics {
             g2.fillOval(x, y, rayon, rayon);
         }
     }
+
+    public Snake getSnake() {
+        return snake;
+    }
 }
