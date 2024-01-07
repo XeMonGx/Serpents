@@ -17,7 +17,6 @@ public class AISnake extends Snake {
     public AISnake(GamePanel gamePanel) {
         super(gamePanel);
         this.pos = new Point();
-        this.cible = new Point();
         randomPoint();
     }
 
