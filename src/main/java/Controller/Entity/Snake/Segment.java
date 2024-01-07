@@ -10,6 +10,7 @@ public abstract class Segment {
     private int size;
     private int speed;
     private boolean collision;
+    private int posXforIA,posYforIA;
 
     private Color color;
     private final int gap = 10;
@@ -64,5 +65,25 @@ public abstract class Segment {
     public void copy(Point tmp){
         tmp.x = position.x;
         tmp.y = position.y;
+    }
+
+    public void setPosXforIA(int posXforIA) {
+        this.posXforIA = posXforIA;
+    }
+
+    public void setPosYforIA(int posYforIA) {
+        this.posYforIA = posYforIA;
+    }
+
+    public int getPosXforIA() {
+        return posXforIA;
+    }
+
+    public int getPosYforIA() {
+        return posYforIA;
+    }
+
+    public boolean comparePoint(Point point){
+        return point.x == position.x && point.y == position.y;
     }
 }

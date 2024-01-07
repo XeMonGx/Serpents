@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements Runnable {
     private MouseMotionHandler mouseMotionHandler = new MouseMotionHandler(this);
     private KeyHandler keyHandler = new KeyHandler();
     private Foods food = new Foods();
-
+    private Counter counter;
     public GamePanel(){
         this.setBackground(Color.black);
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -36,11 +36,14 @@ public class GamePanel extends JPanel implements Runnable {
         this.list_snake.add(new SnakeGraphics(new Snake(this)));
         this.list_snake.add(new SnakeGraphics(new AISnake(this)));
         this.list_snake.add(new SnakeGraphics(new AISnake(this)));
+
+        this.counter = new Counter(list_snake);
     }
 
     public void startGame(){
         this.thread = new Thread(this);
         thread.start();
+        counter.start();
     }
 
     @Override

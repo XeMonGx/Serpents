@@ -3,7 +3,7 @@ package Controller.Entity.Snake;
 import java.awt.*;
 
 public class SnakeHead extends Segment{
-
+    
     public SnakeHead(Point position, int size, int speed, Color color){
         super(position, size, speed, color, false);
     }
@@ -27,10 +27,12 @@ public class SnakeHead extends Segment{
             // Mettre à jour la position du serpent avec les déplacements fractionnaires
             int newPosX = (int) Math.round(this.getPosition().x + getSpeed() * fractionX);
             int newPosY = (int) Math.round(this.getPosition().y + getSpeed() * fractionY);
-
+            super.setPosXforIA(newPosX + (int) Math.round(fractionX));
+            super.setPosYforIA(newPosY + (int) Math.round(fractionY));
             this.setPosition(newPosX, newPosY);
         }
         // Si la distance est nulle, le serpent est déjà à la position de la souris, aucune mise à jour nécessaire
 
     }
+
 }
