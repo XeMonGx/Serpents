@@ -31,7 +31,11 @@ public class AISnake extends Snake {
 
             if(getSnake().get(i) instanceof SnakeHead){
                 getSnake().get(i).copy(tmp);
-            
+                getSnake().get(i).move(pos, new Point(getGamePanel().getCamera().getScreenX(), getGamePanel().getCamera().getScreenY()));
+                Random rand = new Random();
+                if (rand.nextInt(100) == 1){
+                    randomPoint();
+
                 getSnake().get(i).move(pos);
                 if(getSnake().get(i).comparePoint(pos) || compteur <= 0){
                     this.etat = null;
@@ -43,7 +47,7 @@ public class AISnake extends Snake {
             }else{
                 Point tmp2 = new Point();
                 getSnake().get(i).copy(tmp2);
-                getSnake().get(i).move(tmp);
+                getSnake().get(i).move(tmp, new Point(getGamePanel().getCamera().getScreenX(), getGamePanel().getCamera().getScreenY()));
                 tmp = tmp2;
             }
         }
@@ -76,12 +80,12 @@ public class AISnake extends Snake {
     private void makeDecision(){
         if(this.etat == AISnake_etat.MANGER){
             //System.out.println(getSnake().get(0).getPosition().x + " " + getSnake().get(0).getPosition().y + " " + this.pos.x + " " + this.pos.y);
-            
+
             Random random = new Random();
             int r = random.nextInt(this.getGamePanel().getFood().getFood().size());
-            this.pos.x = this.getGamePanel().getFood().getFood().get(r).getPos().x; 
+            this.pos.x = this.getGamePanel().getFood().getFood().get(r).getPos().x;
             this.pos.y = this.getGamePanel().getFood().getFood().get(r).getPos().y;
-            
+
         }else if(this.etat == AISnake_etat.CHASSE){
             Random random = new Random();
             int r = random.nextInt(this.getGamePanel().getList_snake().size());

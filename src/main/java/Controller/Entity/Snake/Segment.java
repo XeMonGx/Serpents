@@ -23,7 +23,7 @@ public abstract class Segment {
         this.collision = collision;
     }
 
-    public abstract void move(Point mousePos);
+    public abstract void move(Point mousePos, Point windowDim);
 
     public int getSpeed() {
         return speed;

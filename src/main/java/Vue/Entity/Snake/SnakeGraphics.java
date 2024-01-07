@@ -2,19 +2,24 @@ package Vue.Entity.Snake;
 
 import Controller.Entity.Snake.Segment;
 import Controller.Entity.Snake.Snake;
+import Model.AISnake;
 import Vue.Game.GamePanel;
 import java.awt.*;
 
 public class SnakeGraphics {
 
     private Snake snake;
+    private GamePanel gamePanel;
 
     public SnakeGraphics(Snake snake){
+        this.gamePanel = snake.getGamePanel();
         this.snake = snake;
     }
 
     public void update(){
-        snake.update();
+        if (snake instanceof AISnake){
+            snake.update();
+        }
     }
 
     public void draw(Graphics2D g2){
@@ -22,14 +27,17 @@ public class SnakeGraphics {
             g2.setColor(segment.getColor());
 
             // Générer des positions aléatoires pour les cercles
-            int x = segment.getPosition().x;
-            int y = segment.getPosition().y;
+            int worldX = segment.getPosition().x;
+            int worldY = segment.getPosition().y;
+
+            int screenX = worldX - gamePanel.getCamera().getWorldX() + gamePanel.getCamera().getScreenX();
+            int screenY = worldY - gamePanel.getCamera().getWorldY() + gamePanel.getCamera().getScreenY();
 
             // Générer un rayon aléatoire pour les cercles
             int rayon = segment.getSize();
 
             // Dessiner le cercle
-            g2.fillOval(x, y, rayon, rayon);
+            g2.fillOval(screenX, screenY, rayon, rayon);
         }
     }
 

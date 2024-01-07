@@ -28,11 +28,13 @@ public class BackgroundTile {
 
         for (int i=0;i<4;i++){
             for (int j=0;j<4;j++){
-
                 int worldX = worldCol * 512;
                 int worldY = worldRow * 512;
 
-                g2.drawImage(tile, worldX, worldY, 512, 512, null);
+                int screenX = worldX - gamePanel.getCamera().getWorldX() + gamePanel.getCamera().getScreenX();
+                int screenY = worldY - gamePanel.getCamera().getWorldY() + gamePanel.getCamera().getScreenY();
+
+                g2.drawImage(tile, screenX, screenY, 512, 512, null);
                 worldCol++;
             }
             worldCol = 0;

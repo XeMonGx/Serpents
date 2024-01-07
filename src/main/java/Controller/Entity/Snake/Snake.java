@@ -1,7 +1,6 @@
 package Controller.Entity.Snake;
 
 import Controller.Entity.Food.FoodGenerate;
-import Model.AISnake;
 import Vue.Entity.Snake.SnakeGraphics;
 import Vue.Game.GamePanel;
 import java.awt.*;
@@ -56,7 +55,7 @@ public class Snake {
                 snake.get(i).copy(tmp2);
                 snake.get(i).move(tmp);
                 tmp = tmp2;
-                //System.out.println("corps " + snake.get(i).getPosition().x + " " + snake.get(i).getPosition().y);
+                System.out.println("corps " + snake.get(i).getPosition().x + " " + snake.get(i).getPosition().y);
             }
         }
         dead();
@@ -114,23 +113,10 @@ public class Snake {
             double distance = Math.sqrt(direction.x * direction.x + direction.y * direction.y);
             if(distance < 500 && distance != 0){
                 for (Segment segment : list_snake.getSnake().getSnake()){
-                    if (isCol(segment)){
-                        init();
-                        //break;
-                    }
+                    if (isCol(segment)) init();
                 }
             }
         }
-    }
-
-    private void snakeDead(Snake snake){
-        for(int i = 0; i < gamePanel.getList_snake().size(); i++){
-            if(gamePanel.getList_snake().get(i).getSnake() == snake){
-                gamePanel.getList_snake().remove(i);
-                break;
-            }
-        }
-        gamePanel.getList_snake().add(new SnakeGraphics(new AISnake(gamePanel)));
     }
 
     private Color genererCouleurAleatoire() {

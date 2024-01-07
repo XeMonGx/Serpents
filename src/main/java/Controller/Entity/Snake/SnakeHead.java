@@ -9,11 +9,14 @@ public class SnakeHead extends Segment{
     }
 
     @Override
-    public void move(Point mousePos) {
+    public void move(Point mousePos, Point windowDim) {
+
+        int worldPosX = mousePos.x - windowDim.x + this.getPosition().x;
+        int worldPosY = mousePos.y - windowDim.y + this.getPosition().y;
 
         // Calculer les déplacements horizontaux et verticaux nécessaires
-        int deltaX = mousePos.x - this.getPosition().x;
-        int deltaY = mousePos.y - this.getPosition().y;
+        int deltaX = worldPosX - this.getPosition().x;
+        int deltaY = worldPosY - this.getPosition().y;
 
         // Calculer la distance totale
         double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);

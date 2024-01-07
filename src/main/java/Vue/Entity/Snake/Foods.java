@@ -1,6 +1,7 @@
 package Vue.Entity.Snake;
 
 import Controller.Entity.Food.FoodGenerate;
+import Vue.Game.GamePanel;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -10,8 +11,10 @@ public class Foods {
 
     private List<FoodGenerate> food;
     private int nb_food;
+    private GamePanel gamePanel;
 
-    public Foods(){
+    public Foods(GamePanel gamePanel){
+        this.gamePanel = gamePanel;
         init();
     }
 
@@ -28,14 +31,17 @@ public class Foods {
             g2.setColor(f.getColor());
 
             // Générer des positions aléatoires pour les cercles
-            int x = f.getPos().x;
-            int y = f.getPos().y;
+            int worldX = f.getPos().x;
+            int worldY = f.getPos().y;
+
+            int screenX = worldX - gamePanel.getCamera().getWorldX() + gamePanel.getCamera().getScreenX();
+            int screenY = worldY - gamePanel.getCamera().getWorldY() + gamePanel.getCamera().getScreenY();
 
             // Générer un rayon aléatoire pour les cercles
             int rayon = f.getSize();
 
             // Dessiner le cercle
-            g2.fillOval(x, y, rayon, rayon);
+            g2.fillOval(screenX, screenY, rayon, rayon);
         }
     }
 

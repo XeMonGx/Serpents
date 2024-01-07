@@ -5,6 +5,7 @@ import Controller.KeyHandler;
 import Controller.MouseMotionHandler;
 import Model.AISnake;
 import Vue.Background.BackgroundTile;
+import Vue.Entity.Snake.Camera;
 import Vue.Entity.Snake.Foods;
 import Vue.Entity.Snake.SnakeGraphics;
 
@@ -20,9 +21,11 @@ public class GamePanel extends JPanel implements Runnable {
     private Thread thread;
     private BackgroundTile backgroundTile;
     private ArrayList<SnakeGraphics> list_snake = new ArrayList<>();
+    private SnakeGraphics player;
+    private Camera camera;
     private MouseMotionHandler mouseMotionHandler = new MouseMotionHandler(this);
     private KeyHandler keyHandler = new KeyHandler();
-    private Foods food = new Foods();
+    private Foods food = new Foods(this);
     private Counter counter;
     public GamePanel(){
         this.setBackground(Color.black);
@@ -33,10 +36,12 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
 
         this.backgroundTile = new BackgroundTile(this);
-        this.list_snake.add(new SnakeGraphics(new Snake(this)));
-        this.list_snake.add(new SnakeGraphics(new AISnake(this)));
-        this.list_snake.add(new SnakeGraphics(new AISnake(this)));
-
+        this.player = new SnakeGraphics(new Snake(this));
+        this.camera = new Camera(player.getSnake());
+        this.list_snake.add(this.player);
+        for (int i = 0; i < 5; i++) {
+            this.list_snake.add(new SnakeGraphics(new AISnake(this)));
+        }
         this.counter = new Counter(list_snake);
     }
 
@@ -73,6 +78,7 @@ public class GamePanel extends JPanel implements Runnable {
         for (SnakeGraphics snake : list_snake){
             snake.update();
         }
+        camera.update();
     }
 
     @Override
@@ -105,5 +111,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     public Foods getFood() {
         return food;
+    }
+
+    public Camera getCamera() {
+        return camera;
     }
 }

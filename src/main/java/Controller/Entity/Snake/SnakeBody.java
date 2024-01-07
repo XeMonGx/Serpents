@@ -10,7 +10,7 @@ public class SnakeBody extends Segment{
     }
 
     @Override
-    public void move(Point previous) {
+    public void move(Point previous, Point windowDis) {
 
         double distanceX = previous.getX() - this.getPosition().x;
         double distanceY = previous.getY() - this.getPosition().y;

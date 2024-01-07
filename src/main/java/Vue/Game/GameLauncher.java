@@ -9,7 +9,7 @@ public class GameLauncher extends JFrame {
 
     public GameLauncher(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
+        //this.setResizable(false);
         this.setTitle("Serpents");
 
         this.gamePanel = new GamePanel();
