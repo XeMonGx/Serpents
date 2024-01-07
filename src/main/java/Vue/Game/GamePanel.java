@@ -16,8 +16,8 @@ import java.util.ArrayList;
 public class GamePanel extends JPanel implements Runnable {
 
     private final int FPS = 60;
-    private int screenWidth = 1200;
-    private int screenHeight = 800;
+    private int screenWidth = 1280;
+    private int screenHeight = 720;
     private Thread thread;
     private BackgroundTile backgroundTile;
     private ArrayList<SnakeGraphics> list_snake = new ArrayList<>();

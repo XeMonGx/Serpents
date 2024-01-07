@@ -51,7 +51,7 @@ public class Snake {
                 snake.get(i).copy(tmp2);
                 snake.get(i).move(tmp, null);
                 tmp = tmp2;
-                System.out.println("corps " + snake.get(i).getPosition().x + " " + snake.get(i).getPosition().y);
+                //System.out.println("corps " + snake.get(i).getPosition().x + " " + snake.get(i).getPosition().y);
             }
         }
         dead();

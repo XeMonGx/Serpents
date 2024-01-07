@@ -30,6 +30,26 @@ public class SnakeHead extends Segment{
             // Mettre à jour la position du serpent avec les déplacements fractionnaires
             int newPosX = (int) Math.round(this.getPosition().x + getSpeed() * fractionX);
             int newPosY = (int) Math.round(this.getPosition().y + getSpeed() * fractionY);
+            // if (newPosX <= 10) {
+            //     newPosX = 1269;
+            // } else if (newPosX >= 1270) {
+            //     newPosX = 11;
+            // }
+            // if (newPosY <= 10) {
+            //     newPosY = 709;
+            // } else if (newPosY >= 710) {
+            //     newPosY = 11;
+            // }
+            if (newPosX < 0) {
+                newPosX += 1280;
+            } else if (newPosX >= 1280) {
+                newPosX -= 1280;
+            }
+            if (newPosY < 0) {
+                newPosY += 720;
+            } else if (newPosY >= 720) {
+                newPosY -= 720;
+            }
             super.setPosXforIA(newPosX + (int) Math.round(fractionX));
             super.setPosYforIA(newPosY + (int) Math.round(fractionY));
             this.setPosition(newPosX, newPosY);

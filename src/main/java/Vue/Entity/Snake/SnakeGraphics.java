@@ -32,7 +32,16 @@ public class SnakeGraphics {
 
             int screenX = worldX - gamePanel.getCamera().getWorldX() + gamePanel.getCamera().getScreenX();
             int screenY = worldY - gamePanel.getCamera().getWorldY() + gamePanel.getCamera().getScreenY();
-
+            if (screenX < 0) {
+                screenX += 1280;
+            } else if (screenX >= 1280) {
+                screenX -= 1280;
+            }
+            if (screenY < 0) {
+                screenY += 720;
+            } else if (screenY >= 720) {
+                screenY -= 720;
+            }
             // Générer un rayon aléatoire pour les cercles
             int rayon = segment.getSize();
 

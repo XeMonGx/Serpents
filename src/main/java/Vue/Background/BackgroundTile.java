@@ -33,7 +33,16 @@ public class BackgroundTile {
 
                 int screenX = worldX - gamePanel.getCamera().getWorldX() + gamePanel.getCamera().getScreenX();
                 int screenY = worldY - gamePanel.getCamera().getWorldY() + gamePanel.getCamera().getScreenY();
-
+                if (screenX < 0) {
+                    screenX += 1280;
+                } else if (screenX >= 1280) {
+                    screenX -= 1280;
+                }
+                if (screenY < 0) {
+                    screenY += 720;
+                } else if (screenY >= 720) {
+                    screenY -= 720;
+                }
                 g2.drawImage(tile, screenX, screenY, 512, 512, null);
                 worldCol++;
             }
