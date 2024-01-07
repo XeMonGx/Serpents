@@ -41,19 +41,15 @@ public class Snake {
     }
 
     public void update(){
-        //System.out.println("test");
         Point tmp = new Point();
         for (int i=0;i<snake.size();i++){
             if(snake.get(i) instanceof SnakeHead){
                 snake.get(i).copy(tmp);
-                //System.out.println("Atete " + tmp.x + " " + tmp.y);
-                snake.get(i).move(gamePanel.getMouseMotionHandler().getMousePos());
-                //System.out.println("Ntete " + snake.get(i).getPosition().x + " " + snake.get(i).getPosition().y);
-                //System.out.println("Atete2 " + tmp.x + " " + tmp.y);
+                snake.get(i).move(gamePanel.getMouseMotionHandler().getMousePos(), new Point(gamePanel.getCamera().getScreenX(), gamePanel.getCamera().getScreenY()));
             }else{
                 Point tmp2 = new Point();
                 snake.get(i).copy(tmp2);
-                snake.get(i).move(tmp);
+                snake.get(i).move(tmp, null);
                 tmp = tmp2;
                 System.out.println("corps " + snake.get(i).getPosition().x + " " + snake.get(i).getPosition().y);
             }
