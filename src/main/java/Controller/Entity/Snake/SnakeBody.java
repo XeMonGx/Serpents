@@ -1,9 +1,10 @@
 package Controller.Entity.Snake;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.List;
 
-public class SnakeBody extends Segment{
+public class SnakeBody extends Segment implements Serializable {
 
     public SnakeBody(Point position, int size, int speed, Color color){
         super(position, size, speed, color, true);

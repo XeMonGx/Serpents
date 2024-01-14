@@ -1,18 +1,18 @@
 package Vue.Game;
 
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import Model.AISnake;
-import Vue.Entity.Snake.SnakeGraphics;
+import Controller.Entity.Snake.SnakeHandler;
+import Controller.Entity.Snake.Variation.AISnake;
+import Controller.Entity.Snake.Snake;
 
 public class Counter extends Thread {
-    private ArrayList<SnakeGraphics> list_snake;
+    private SnakeHandler snakeHandler;
 
-    public Counter(ArrayList<SnakeGraphics> list_snake) {
+    public Counter(SnakeHandler snakeHandler) {
         super();
-        this.list_snake = list_snake;
+        this.snakeHandler = snakeHandler;
     }
 
     @Override
@@ -20,8 +20,8 @@ public class Counter extends Thread {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {
-                for (SnakeGraphics snake : list_snake) {
-                    if(snake.getSnake() instanceof AISnake){
+                for (Snake snake : snakeHandler.getSnakeArrayList()) {
+                    if(snake instanceof AISnake){
                         AISnake aiSnake = (AISnake) snake.getSnake();
                         aiSnake.decreaserCompteur();
                     }

@@ -1,21 +1,28 @@
-package Model;
+package Controller.Entity.Snake.Variation;
 
+import Controller.Camera;
+import Controller.Entity.Food.Food;
 import Controller.Entity.Snake.Snake;
+import Controller.Entity.Snake.SnakeHandler;
 import Controller.Entity.Snake.SnakeHead;
+import Controller.MouseListenerHandler;
+import Controller.MouseMotionHandler;
 import Vue.Game.GamePanel;
 
 import java.awt.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Random;
 
-public class AISnake extends Snake {
+public class AISnake extends Snake implements Serializable {
 
     private Point pos;
     private AISnake_etat etat;
     private Snake ennemi;
     private int compteur = 0;
 
-    public AISnake(GamePanel gamePanel) {
-        super(gamePanel);
+    public AISnake(String username, int screenX, int screenY, MouseListenerHandler mouseListenerHandler, MouseMotionHandler mouseMotionHandler, ArrayList<Food> foodArrayList, SnakeHandler snakeHandler) {
+        super(username,screenX, screenY, mouseListenerHandler, mouseMotionHandler, foodArrayList, snakeHandler);
         this.pos = new Point();
         randomPoint();
     }
@@ -31,7 +38,7 @@ public class AISnake extends Snake {
 
             if(getSnake().get(i) instanceof SnakeHead){
                 getSnake().get(i).copy(tmp);
-                getSnake().get(i).move(pos, new Point(getGamePanel().getCamera().getScreenX(), getGamePanel().getCamera().getScreenY()));
+                getSnake().get(i).move(pos, new Point(getScreenX(), getScreenY()));
                 if(getSnake().get(i).comparePoint(pos) || compteur <= 0){
                     this.etat = null;
                 }else if(etat == AISnake_etat.CHASSE){
@@ -41,7 +48,7 @@ public class AISnake extends Snake {
             }else{
                 Point tmp2 = new Point();
                 getSnake().get(i).copy(tmp2);
-                getSnake().get(i).move(tmp, new Point(getGamePanel().getCamera().getScreenX(), getGamePanel().getCamera().getScreenY()));
+                getSnake().get(i).move(tmp, new Point(getScreenX(), getScreenY()));
                 tmp = tmp2;
             }
         }
@@ -52,8 +59,8 @@ public class AISnake extends Snake {
 
     private void randomPoint(){
         Random random = new Random();
-        this.pos.x = random.nextInt(getGamePanel().getScreenWidth());
-        this.pos.y = random.nextInt(getGamePanel().getScreenHeight());
+        this.pos.x = random.nextInt(getScreenX()*2);
+        this.pos.y = random.nextInt(getScreenY()*2);
     }
 
     private void getDecision(){
@@ -73,20 +80,18 @@ public class AISnake extends Snake {
 
     private void makeDecision(){
         if(this.etat == AISnake_etat.MANGER){
-            //System.out.println(getSnake().get(0).getPosition().x + " " + getSnake().get(0).getPosition().y + " " + this.pos.x + " " + this.pos.y);
-
             Random random = new Random();
-            int r = random.nextInt(this.getGamePanel().getFood().getFood().size());
-            this.pos.x = this.getGamePanel().getFood().getFood().get(r).getPos().x;
-            this.pos.y = this.getGamePanel().getFood().getFood().get(r).getPos().y;
+            int r = random.nextInt(getFoodArrayList().size());
+            this.pos.x = getFoodArrayList().get(r).getPos().x;
+            this.pos.y = getFoodArrayList().get(r).getPos().y;
 
         }else if(this.etat == AISnake_etat.CHASSE){
             Random random = new Random();
-            int r = random.nextInt(this.getGamePanel().getList_snake().size());
-            this.ennemi = this.getGamePanel().getList_snake().get(r).getSnake();
+            int r = random.nextInt(getSnakeHandler().getSnakeArrayList().size());
+            this.ennemi = (Snake) getSnakeHandler().getSnakeArrayList().get(r).getSnake();
             while(this == ennemi){
-                r = random.nextInt(this.getGamePanel().getList_snake().size());
-                this.ennemi = this.getGamePanel().getList_snake().get(r).getSnake();
+                r = random.nextInt(getSnakeHandler().getSnakeArrayList().size());
+                this.ennemi = (Snake) getSnakeHandler().getSnakeArrayList().get(r).getSnake();
             }
             this.pos.x = this.ennemi.getSnake().get(0).getPosXforIA();
             this.pos.y = this.ennemi.getSnake().get(0).getPosYforIA();

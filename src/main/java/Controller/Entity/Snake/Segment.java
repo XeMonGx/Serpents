@@ -3,8 +3,9 @@ package Controller.Entity.Snake;
 import Vue.Game.GamePanel;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public abstract class Segment {
+public abstract class Segment implements Serializable {
 
     private Point position;
     private int size;

@@ -5,14 +5,17 @@ import java.awt.*;
 
 public class GameLauncher extends JFrame {
 
-    private GamePanel gamePanel;
 
-    public GameLauncher(){
+    public GameLauncher(String username){
+        init(username);
+    }
+
+    private void init(String username){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //this.setResizable(false);
+        this.setResizable(false);
         this.setTitle("Serpents");
 
-        this.gamePanel = new GamePanel();
+        GamePanel gamePanel = new GamePanel(username);
         this.add(gamePanel);
 
         this.pack();
@@ -20,7 +23,7 @@ public class GameLauncher extends JFrame {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
-        this.gamePanel.startGame();
+        gamePanel.startGame();
     }
 
 }

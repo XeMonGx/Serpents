@@ -10,6 +10,10 @@ public class Home extends JFrame {
 
     private HomePanel homePanel;
     public Home(){
+        init();
+    }
+
+    private void init(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setTitle("Serpents");

@@ -1,4 +1,4 @@
-package Vue.Entity.Snake;
+package Controller;
 
 import Controller.Entity.Snake.Segment;
 import Vue.Game.GamePanel;
@@ -8,16 +8,14 @@ import java.awt.*;
 
 public class Camera {
 
-    private GamePanel gamePanel;
     private Snake snake;
     private final int screenX;
     private final int screenY;
 
-    public Camera(Snake snake){
+    public Camera(Snake snake, int screenWidth, int screenHeight){
         this.snake = snake;
-        this.gamePanel = snake.getGamePanel();
-        this.screenX = gamePanel.getScreenWidth() / 2;
-        this.screenY = gamePanel.getScreenHeight() / 2;
+        this.screenX = screenWidth / 2;
+        this.screenY = screenHeight / 2;
     }
 
     public void update(){

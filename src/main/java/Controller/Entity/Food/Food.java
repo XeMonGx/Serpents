@@ -1,23 +1,25 @@
 package Controller.Entity.Food;
 
 import java.awt.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Random;
 
-public class FoodGenerate {
+public class Food implements Serializable {
 
     private Point pos;
     private int size;
     private Color color;
 
-    public FoodGenerate(){
+    public Food(){
         init();
     }
-    public FoodGenerate(Point position){
+    public Food(Point position){
         init();
         this.pos = position;
     }
 
-    public void init(){
+    private void init(){
         this.size = new Random().nextInt(15) + 5;
         int x = new Random().nextInt(2560);
         int y = new Random().nextInt(2560);

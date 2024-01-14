@@ -9,8 +9,14 @@ public class HomePanel extends JPanel{
 
     private int screenWidth = 1200;
     private int screenHeight = 800;
+    private Home home;
 
     public HomePanel(Home home){
+        this.home = home;
+        init();
+    }
+
+    private void init(){
         this.setBackground(Color.black);
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setLayout(new BorderLayout());
@@ -48,8 +54,7 @@ public class HomePanel extends JPanel{
 
         button.addActionListener(e -> {
             home.setVisible(false);
-            new GameLauncher();
+            new GameLauncher(textArea.getText());
         });
-
     }
 }
