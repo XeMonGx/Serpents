@@ -1,11 +1,16 @@
 # Project Serpent
 
-Build command :
+### Build command :
 ```http
   gradle build
 ```
-Run command :
+### Run client command :
 ```http
-  gradle run
+  java -cp Client/build/libs/Client.jar Main
+```
+### Run server command :
+```http
+  java -cp Server/build/libs/Server.jar Main
 ```
 Github : https://github.com/XeMonGx/Serpents.git
+

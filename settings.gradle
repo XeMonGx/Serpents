@@ -1,4 +1,3 @@
-rootProject.name = 'Serpents'
-include 'Cient'
+include 'Client'
 include 'Server'
 
