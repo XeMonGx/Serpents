@@ -1,2 +1,4 @@
 rootProject.name = 'Serpents'
+include 'Cient'
+include 'Server'
 
