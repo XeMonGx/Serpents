@@ -2,8 +2,9 @@ package Controller;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
-public class KeyHandler implements KeyListener {
+public class KeyHandler implements KeyListener, Serializable {
 
     public int count = 1;
 

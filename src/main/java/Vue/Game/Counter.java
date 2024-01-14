@@ -22,7 +22,7 @@ public class Counter extends Thread {
             public void run() {
                 for (Snake snake : snakeHandler.getSnakeArrayList()) {
                     if(snake instanceof AISnake){
-                        AISnake aiSnake = (AISnake) snake.getSnake();
+                        AISnake aiSnake = (AISnake) snake;
                         aiSnake.decreaserCompteur();
                     }
                 }

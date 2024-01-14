@@ -1,5 +1,6 @@
 package Vue.Background;
 
+import Controller.Camera;
 import Vue.Game.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -10,10 +11,10 @@ import java.io.IOException;
 public class BackgroundTile {
 
     private BufferedImage tile;
-    private GamePanel gamePanel;
+    private final Camera camera;
 
-    public BackgroundTile(GamePanel gamePanel){
-        this.gamePanel = gamePanel;
+    public BackgroundTile(Camera camera){
+        this.camera = camera;
         initValue();
     }
 
@@ -27,15 +28,15 @@ public class BackgroundTile {
                 int worldX = i * 512;
                 int worldY = j * 512;
 
-                int screenX = worldX - gamePanel.getCamera().getWorldX() + gamePanel.getCamera().getScreenX();
-                int screenY = worldY - gamePanel.getCamera().getWorldY() + gamePanel.getCamera().getScreenY();
+                int screenX = worldX - camera.getWorldX() + camera.getScreenX();
+                int screenY = worldY - camera.getWorldY() + camera.getScreenY();
 
                 g2.drawImage(tile, screenX, screenY, 512, 512, null);
             }
         }
     }
 
-    public void getBackgroundImage(){
+    private void getBackgroundImage(){
         try {
             tile = ImageIO.read(getClass().getResourceAsStream("/background.png"));
         }catch (IOException e){

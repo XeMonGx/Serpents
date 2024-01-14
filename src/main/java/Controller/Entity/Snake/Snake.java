@@ -1,13 +1,9 @@
 package Controller.Entity.Snake;
 
-import Controller.Camera;
 import Controller.Entity.Food.Food;
 import Controller.MouseListenerHandler;
 import Controller.MouseMotionHandler;
-import Vue.Entity.Snake.SnakeGraphics;
-import Vue.Game.GamePanel;
 import java.awt.*;
-import java.awt.geom.Area;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

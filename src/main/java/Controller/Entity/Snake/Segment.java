@@ -1,7 +1,5 @@
 package Controller.Entity.Snake;
 
-import Vue.Game.GamePanel;
-
 import java.awt.*;
 import java.io.Serializable;
 

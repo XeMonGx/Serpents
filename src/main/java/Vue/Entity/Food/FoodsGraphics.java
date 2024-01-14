@@ -5,12 +5,11 @@ import Controller.Entity.Food.Food;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class FoodsGraphics {
 
     private ArrayList<Food> foodArrayList;
-    private Camera camera;
+    private final Camera camera;
 
     public FoodsGraphics(ArrayList<Food> foodArrayList, Camera camera){
         this.foodArrayList = foodArrayList;

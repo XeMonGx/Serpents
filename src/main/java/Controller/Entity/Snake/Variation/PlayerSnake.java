@@ -1,12 +1,10 @@
 package Controller.Entity.Snake.Variation;
 
-import Controller.Camera;
 import Controller.Entity.Food.Food;
 import Controller.Entity.Snake.Snake;
 import Controller.Entity.Snake.SnakeHandler;
 import Controller.MouseListenerHandler;
 import Controller.MouseMotionHandler;
-import Vue.Game.GamePanel;
 
 import java.io.Serializable;
 import java.util.ArrayList;

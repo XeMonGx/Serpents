@@ -1,12 +1,10 @@
 package Controller;
 
-import Controller.Entity.Snake.Segment;
-import Vue.Game.GamePanel;
 import Controller.Entity.Snake.Snake;
 
-import java.awt.*;
+import java.io.Serializable;
 
-public class Camera {
+public class Camera implements Serializable {
 
     private Snake snake;
     private final int screenX;

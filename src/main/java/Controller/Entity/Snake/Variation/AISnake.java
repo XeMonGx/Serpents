@@ -1,13 +1,11 @@
 package Controller.Entity.Snake.Variation;
 
-import Controller.Camera;
 import Controller.Entity.Food.Food;
 import Controller.Entity.Snake.Snake;
 import Controller.Entity.Snake.SnakeHandler;
 import Controller.Entity.Snake.SnakeHead;
 import Controller.MouseListenerHandler;
 import Controller.MouseMotionHandler;
-import Vue.Game.GamePanel;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -59,8 +57,8 @@ public class AISnake extends Snake implements Serializable {
 
     private void randomPoint(){
         Random random = new Random();
-        this.pos.x = random.nextInt(getScreenX()*2);
-        this.pos.y = random.nextInt(getScreenY()*2);
+        this.pos.x = random.nextInt(getScreenX());
+        this.pos.y = random.nextInt(getScreenY());
     }
 
     private void getDecision(){
@@ -88,10 +86,10 @@ public class AISnake extends Snake implements Serializable {
         }else if(this.etat == AISnake_etat.CHASSE){
             Random random = new Random();
             int r = random.nextInt(getSnakeHandler().getSnakeArrayList().size());
-            this.ennemi = (Snake) getSnakeHandler().getSnakeArrayList().get(r).getSnake();
+            this.ennemi = getSnakeHandler().getSnakeArrayList().get(r);
             while(this == ennemi){
                 r = random.nextInt(getSnakeHandler().getSnakeArrayList().size());
-                this.ennemi = (Snake) getSnakeHandler().getSnakeArrayList().get(r).getSnake();
+                this.ennemi = getSnakeHandler().getSnakeArrayList().get(r);
             }
             this.pos.x = this.ennemi.getSnake().get(0).getPosXforIA();
             this.pos.y = this.ennemi.getSnake().get(0).getPosYforIA();

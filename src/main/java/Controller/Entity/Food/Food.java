@@ -2,7 +2,6 @@ package Controller.Entity.Food;
 
 import java.awt.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Food implements Serializable {

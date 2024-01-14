@@ -1,7 +1,9 @@
 package Vue.Game;
 
 import Controller.Entity.Food.Food;
+import Controller.Entity.Snake.Snake;
 import Controller.Entity.Snake.SnakeHandler;
+import Controller.Entity.Snake.Variation.AISnake;
 import Controller.Entity.Snake.Variation.PlayerSnake;
 import Controller.KeyHandler;
 import Controller.MouseListenerHandler;
@@ -53,18 +55,23 @@ public class GamePanel extends JPanel implements Runnable {
         this.addMouseListener(mouseListenerHandler);
         this.setFocusable(true);
 
-        this.backgroundTile = new BackgroundTile(this);
-
         this.playerSnake = new PlayerSnake(username, screenWidth /2, screenHeight/2, mouseListenerHandler, mouseMotionHandler, foodArrayList, snakeHandler);
         this.camera = new Camera(playerSnake, screenWidth, screenHeight);
+        this.backgroundTile = new BackgroundTile(camera);
         for (int i=0; i<1000; i++){
             foodArrayList.add(new Food());
         }
         foodsGraphics = new FoodsGraphics(foodArrayList, camera);
 
         this.snakeHandler.add(playerSnake);
+        for (int i=0;i<20; i++){
+            this.snakeHandler.add(new AISnake("", screenWidth /2, screenHeight/2, mouseListenerHandler, mouseMotionHandler, foodArrayList, snakeHandler));
+        }
         this.playerSnakeGraphics = new SnakeGraphics(playerSnake, camera);
         this.snakeGraphicsArrayList.add(this.playerSnakeGraphics);
+        for (Snake snake : snakeHandler.getSnakeArrayList()){
+            snakeGraphicsArrayList.add(new SnakeGraphics(snake, camera));
+        }
         this.counter = new Counter(snakeHandler);
     }
 

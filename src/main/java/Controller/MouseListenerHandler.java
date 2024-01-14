@@ -2,8 +2,9 @@ package Controller;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serializable;
 
-public class MouseListenerHandler implements MouseListener {
+public class MouseListenerHandler implements MouseListener, Serializable {
 
     private boolean pressed;
 

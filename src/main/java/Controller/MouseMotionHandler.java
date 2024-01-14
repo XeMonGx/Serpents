@@ -2,12 +2,13 @@ package Controller;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.Serializable;
 
 import Vue.Game.GamePanel;
 
 import static Controller.Direction.*;
 
-public class MouseMotionHandler implements MouseMotionListener {
+public class MouseMotionHandler implements MouseMotionListener, Serializable {
 
     private Point mousePos;
 
@@ -27,12 +28,8 @@ public class MouseMotionHandler implements MouseMotionListener {
         
     }
 
-
-
     public Point getMousePos() {
         return mousePos;
     }
-
-
 
 }

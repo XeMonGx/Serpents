@@ -3,13 +3,12 @@ package Vue.Entity.Snake;
 import Controller.Camera;
 import Controller.Entity.Snake.Snake;
 import Controller.Entity.Snake.Variation.AISnake;
-import Vue.Game.GamePanel;
 import java.awt.*;
 
 public class SnakeGraphics {
 
     private Snake snake;
-    private Camera camera;
+    private final Camera camera;
 
     public SnakeGraphics(Snake snake, Camera camera){
         this.snake = snake;
