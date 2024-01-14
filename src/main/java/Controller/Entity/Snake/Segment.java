@@ -54,8 +54,8 @@ public abstract class Segment {
         this.position.y = y;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void setSize() {
+        this.size += 1;
     }
 
     public void setSpeed(int speed) {

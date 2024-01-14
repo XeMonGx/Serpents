@@ -22,23 +22,16 @@ public class BackgroundTile {
     }
 
     public void draw(Graphics2D g2){
-
-        int worldCol = 0;
-        int worldRow = 0;
-
-        for (int i=0;i<4;i++){
-            for (int j=0;j<4;j++){
-                int worldX = worldCol * 512;
-                int worldY = worldRow * 512;
+        for (int i=-5;i<5;i++){
+            for (int j=-5;j<5;j++){
+                int worldX = i * 512;
+                int worldY = j * 512;
 
                 int screenX = worldX - gamePanel.getCamera().getWorldX() + gamePanel.getCamera().getScreenX();
                 int screenY = worldY - gamePanel.getCamera().getWorldY() + gamePanel.getCamera().getScreenY();
 
                 g2.drawImage(tile, screenX, screenY, 512, 512, null);
-                worldCol++;
             }
-            worldCol = 0;
-            worldRow++;
         }
     }
 

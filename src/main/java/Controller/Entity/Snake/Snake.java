@@ -15,6 +15,7 @@ public class Snake {
     private int exp;
     private int size;
     private int speed;
+    private int length;
     private Color color;
 
     public Snake(GamePanel gamePanel){
@@ -29,6 +30,7 @@ public class Snake {
         this.color = genererCouleurAleatoire();
         this.size = 32;
         this.speed = 2;
+        this.length = 1;
 
         Random random = new Random();
         int posX = random.nextInt(1200);
@@ -43,6 +45,13 @@ public class Snake {
     public void update(){
         Point tmp = new Point();
         for (int i=0;i<snake.size();i++){
+            if (gamePanel.getMouseListenerHandler().getPressed() == true){
+                speed = 5;
+                snake.get(i).setSpeed(5);
+            }else {
+                speed = 2;
+                snake.get(i).setSpeed(2);
+            }
             if(snake.get(i) instanceof SnakeHead){
                 snake.get(i).copy(tmp);
                 snake.get(i).move(gamePanel.getMouseMotionHandler().getMousePos(), new Point(gamePanel.getCamera().getScreenX(), gamePanel.getCamera().getScreenY()));
@@ -51,9 +60,9 @@ public class Snake {
                 snake.get(i).copy(tmp2);
                 snake.get(i).move(tmp, null);
                 tmp = tmp2;
-                System.out.println("corps " + snake.get(i).getPosition().x + " " + snake.get(i).getPosition().y);
             }
         }
+
         dead();
         eatFood();
         grow(tmp);
@@ -74,9 +83,9 @@ public class Snake {
             int foodX = food.getPos().x;
             int foodY = food.getPos().y;
 
-            if(headX < foodX + 30 && headX + 30 > foodX && headY < foodY + 30 && headY + 30 > foodY){
+            if(headX < foodX + (size) && headX > foodX - (size/2) && headY < foodY + (size) && headY > foodY - (size/2)){
                 exp += food.getSize();
-                gamePanel.getFood().addFood(i);
+                gamePanel.getFood().newFood(i);
             }
         }
     }
@@ -85,6 +94,14 @@ public class Snake {
         if (exp > 10) {
             exp = 0;
             Point startPos = new Point(pos.x, pos.y);
+            length++;
+            if (length > 3) {
+                length = 0;
+                for (Segment segment : snake){
+                    segment.setSize();
+                }
+                size+=1;
+            }
             snake.add(new SnakeBody(startPos, size, speed, color)); 
         }
     }
@@ -93,8 +110,8 @@ public class Snake {
         int headPosX = snake.get(0).getPosition().x;
         int headPosY = snake.get(0).getPosition().y;
         if(segment.getCollision()){
-            return segment.getPosition().x + 10 >= headPosX && segment.getPosition().x - 10 <= headPosX
-                    && segment.getPosition().y + 10 >= headPosY && segment.getPosition().y - 10 <= headPosY;
+            return segment.getPosition().x + size/2 > headPosX && segment.getPosition().x - size < headPosX
+                    && segment.getPosition().y + size/2 > headPosY && segment.getPosition().y - size < headPosY;
         }
         return false;
     }
@@ -109,7 +126,12 @@ public class Snake {
             double distance = Math.sqrt(direction.x * direction.x + direction.y * direction.y);
             if(distance < 500 && distance != 0){
                 for (Segment segment : list_snake.getSnake().getSnake()){
-                    if (isCol(segment)) init();
+                    if (isCol(segment)) {
+                        for (Segment seg : snake){
+                            gamePanel.getFood().addFood(seg.getPosition());
+                        }
+                        init();
+                    }
                 }
             }
         }

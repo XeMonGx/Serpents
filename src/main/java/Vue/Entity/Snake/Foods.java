@@ -10,17 +10,17 @@ import java.util.List;
 public class Foods {
 
     private List<FoodGenerate> food;
-    private int nb_food;
+    private final int nb_food;
     private GamePanel gamePanel;
 
     public Foods(GamePanel gamePanel){
         this.gamePanel = gamePanel;
+        nb_food = 1000;
         init();
     }
 
     public void init(){
         food = new ArrayList<>();
-        nb_food = 50;
         for (int i=0;i<nb_food;i++){
             food.add(new FoodGenerate());
         }
@@ -45,8 +45,11 @@ public class Foods {
         }
     }
 
-    public void addFood(int i){
-        food.get(i).setPos();
+    public void newFood(int i){
+        food.get(i).newPos();
+    }
+    public void addFood(Point pos){
+        food.add(new FoodGenerate(pos));
     }
 
     public List<FoodGenerate> getFood() {

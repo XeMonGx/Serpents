@@ -23,21 +23,23 @@ public class SnakeGraphics {
     }
 
     public void draw(Graphics2D g2){
-        for (Segment segment : snake.getSnake()){
-            g2.setColor(segment.getColor());
-
+        for (int i = snake.getSnake().size()-1; i >= 0; i--){
             // Générer des positions aléatoires pour les cercles
-            int worldX = segment.getPosition().x;
-            int worldY = segment.getPosition().y;
+            int worldX = snake.getSnake().get(i).getPosition().x;
+            int worldY = snake.getSnake().get(i).getPosition().y;
 
-            int screenX = worldX - gamePanel.getCamera().getWorldX() + gamePanel.getCamera().getScreenX();
-            int screenY = worldY - gamePanel.getCamera().getWorldY() + gamePanel.getCamera().getScreenY();
+            int screenX = worldX - gamePanel.getCamera().getWorldX() + gamePanel.getCamera().getScreenX()-(snake.getSnake().get(i).getSize()/2);
+            int screenY = worldY - gamePanel.getCamera().getWorldY() + gamePanel.getCamera().getScreenY()-(snake.getSnake().get(i).getSize()/2);
 
             // Générer un rayon aléatoire pour les cercles
-            int rayon = segment.getSize();
+            int rayon = snake.getSnake().get(i).getSize();
+
+            g2.setColor(Color.black);
+            g2.fillOval(screenX, screenY, rayon, rayon);
 
             // Dessiner le cercle
-            g2.fillOval(screenX, screenY, rayon, rayon);
+            g2.setColor(snake.getSnake().get(i).getColor());
+            g2.fillOval(screenX+3, screenY+3, rayon-6, rayon-6);
         }
     }
 

@@ -1,10 +1,7 @@
 package Controller;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 
 import Vue.Game.GamePanel;
 
@@ -13,10 +10,9 @@ import static Controller.Direction.*;
 public class MouseMotionHandler implements MouseMotionListener {
 
     private Point mousePos;
-    private GamePanel gp;
-    public MouseMotionHandler(GamePanel gp){
+
+    public MouseMotionHandler(){
         this.mousePos = new Point();
-        this.gp = gp;
     }
 
     @Override
@@ -31,7 +27,12 @@ public class MouseMotionHandler implements MouseMotionListener {
         
     }
 
+
+
     public Point getMousePos() {
         return mousePos;
     }
+
+
+
 }

@@ -12,11 +12,21 @@ public class FoodGenerate {
     public FoodGenerate(){
         init();
     }
+    public FoodGenerate(Point position){
+        init();
+        this.pos = position;
+    }
 
     public void init(){
         this.size = new Random().nextInt(15) + 5;
-        int x = new Random().nextInt(1200);
-        int y = new Random().nextInt(800);
+        int x = new Random().nextInt(2560);
+        int y = new Random().nextInt(2560);
+        if (new Random().nextInt(2) == 0){
+            x = -x;
+        }
+        if (new Random().nextInt(2) == 0){
+            y = -y;
+        }
         this.pos = new Point(x, y);
         this.color = genererCouleurAleatoire();
     }
@@ -26,9 +36,15 @@ public class FoodGenerate {
         return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     }
 
-    public void setPos(){
-        pos.x = new Random().nextInt(1200);
-        pos.y = new Random().nextInt(800);
+    public void newPos(){
+        pos.x = new Random().nextInt(2560);
+        pos.y = new Random().nextInt(2560);
+        if (new Random().nextInt(2) == 0){
+            pos.x = -pos.x;
+        }
+        if (new Random().nextInt(2) == 0){
+            pos.y = -pos.y;
+        }
     }
 
     public Color getColor() {

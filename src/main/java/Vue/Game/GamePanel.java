@@ -2,6 +2,7 @@ package Vue.Game;
 
 import Controller.Entity.Snake.Snake;
 import Controller.KeyHandler;
+import Controller.MouseListenerHandler;
 import Controller.MouseMotionHandler;
 import Model.AISnake;
 import Vue.Background.BackgroundTile;
@@ -23,16 +24,18 @@ public class GamePanel extends JPanel implements Runnable {
     private ArrayList<SnakeGraphics> list_snake = new ArrayList<>();
     private SnakeGraphics player;
     private Camera camera;
-    private MouseMotionHandler mouseMotionHandler = new MouseMotionHandler(this);
+    private MouseMotionHandler mouseMotionHandler = new MouseMotionHandler();
+    private MouseListenerHandler mouseListenerHandler = new MouseListenerHandler();
     private KeyHandler keyHandler = new KeyHandler();
     private Foods food = new Foods(this);
     private Counter counter;
     public GamePanel(){
-        this.setBackground(Color.black);
+        this.setBackground(Color.WHITE);
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.addMouseMotionListener(mouseMotionHandler);
+        this.addMouseListener(mouseListenerHandler);
         this.setFocusable(true);
 
         this.backgroundTile = new BackgroundTile(this);
@@ -86,10 +89,10 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         backgroundTile.draw(g2);
+        food.draw(g2);
         for (SnakeGraphics snake : list_snake){
             snake.draw(g2);
         }
-        food.draw(g2);
         g2.dispose();
     }
 
@@ -115,5 +118,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     public Camera getCamera() {
         return camera;
+    }
+
+    public MouseListenerHandler getMouseListenerHandler() {
+        return mouseListenerHandler;
     }
 }
