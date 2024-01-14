@@ -31,8 +31,15 @@ public class SnakeHead extends Segment implements Serializable {
             // Mettre à jour la position du serpent avec les déplacements fractionnaires
             int newPosX = (int) Math.round(this.getPosition().x + getSpeed() * fractionX);
             int newPosY = (int) Math.round(this.getPosition().y + getSpeed() * fractionY);
+            if (newPosX >= 2048 || newPosX <= -2048){
+                newPosX = -newPosX;
+            }
+            if (newPosY >= 2048 || newPosY <= -2048){
+                newPosY = -newPosY;
+            }
             super.setPosXforIA(newPosX + (int) Math.round(fractionX));
             super.setPosYforIA(newPosY + (int) Math.round(fractionY));
+
             this.setPosition(newPosX, newPosY);
         }
         // Si la distance est nulle, le serpent est déjà à la position de la souris, aucune mise à jour nécessaire

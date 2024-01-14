@@ -23,6 +23,12 @@ public class SnakeBody extends Segment implements Serializable {
 
             int newPosX = (int) Math.round(this.getPosition().x + movementX * (vec - this.getGap()));
             int newPosY = (int) Math.round(this.getPosition().y + movementY * (vec - this.getGap()));
+            if (newPosX >= 2048 || newPosX <= -2048){
+                newPosX = -newPosX;
+            }
+            if (newPosY >= 2048 || newPosY <= -2048){
+                newPosY = -newPosY;
+            }
 
             this.setPosition(newPosX, newPosY);
         }

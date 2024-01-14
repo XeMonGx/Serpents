@@ -23,8 +23,8 @@ public class BackgroundTile {
     }
 
     public void draw(Graphics2D g2){
-        for (int i=-5;i<5;i++){
-            for (int j=-5;j<5;j++){
+        for (int i=-6;i<6;i++){
+            for (int j=-6;j<6;j++){
                 int worldX = i * 512;
                 int worldY = j * 512;
 

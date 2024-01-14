@@ -4,6 +4,8 @@ import Vue.Game.GameLauncher;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class HomePanel extends JPanel{
 
@@ -38,16 +40,30 @@ public class HomePanel extends JPanel{
         up.setBackground(new Color(12,13,16));
         down.setBackground(new Color(12,13,16));
 
+        JLabel title = new JLabel("Slither.no");
+        title.setFont(new Font("Arial", Font.PLAIN, 50));
+        title.setForeground(Color.white);
+
+        up.setLayout(new FlowLayout(FlowLayout.CENTER));
+        up.add(title);
+
         JButton button = new JButton("Jouer");
+        button.setBackground(Color.black);
+        button.setForeground(Color.black);
+        button.setOpaque(true);
 
-        JTextArea textArea = new JTextArea();
-        button.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-        textArea.setLineWrap(true); // Enable line wrapping
-        textArea.setWrapStyleWord(true); // Wrap at word boundaries
+        JTextArea textArea = new JTextArea("username");
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
+        textArea.setAlignmentY(Component.CENTER_ALIGNMENT);
 
+        JPanel space = new JPanel();
+        space.setBackground(new Color(12,13,16));
 
-        center.setLayout(new GridLayout(2,1));
+        center.setLayout(new GridLayout(3,1));
         center.add(textArea);
+        center.add(space);
         center.add(button);
 
 
@@ -60,6 +76,13 @@ public class HomePanel extends JPanel{
         button.addActionListener(e -> {
             home.setVisible(false);
             new GameLauncher(textArea.getText());
+        });
+
+        textArea.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                textArea.setText("");
+            }
         });
     }
 }

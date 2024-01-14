@@ -6,11 +6,9 @@ import java.io.Serializable;
 
 public class KeyHandler implements KeyListener, Serializable {
 
-    public int count = 1;
-
     @Override
     public void keyTyped(KeyEvent e) {
-        count++;
+
     }
 
     @Override
