@@ -35,8 +35,8 @@ public class FoodsGraphics {
             g2.setColor(f.getColor());
 
             // Convertir les coordonnées mondiales en coordonnées d'écran.
-            int screenX = f.getPos().x - camera.getWorldX() + camera.getScreenX();
-            int screenY = f.getPos().y - camera.getWorldY() + camera.getScreenY();
+            int screenX = f.getPosition().x - camera.getWorldX() + camera.getScreenX();
+            int screenY = f.getPosition().y - camera.getWorldY() + camera.getScreenY();
 
             // Dessiner le cercle représentant la nourriture.
             g2.fillOval(screenX, screenY, f.getSize(), f.getSize());

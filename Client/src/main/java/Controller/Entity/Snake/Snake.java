@@ -78,7 +78,7 @@ public class Snake implements Serializable {
     public void update() {
         Point tmp = new Point();
         for (int i = 0; i < snake.size(); i++) {
-            if (mouseListenerHandler.getPressed()) { // Acceleration du serpent
+            if (mouseListenerHandler.isPressed()) { // Acceleration du serpent
                 speed = 5;
                 snake.get(i).setSpeed(5);
             } else {
@@ -161,8 +161,8 @@ public class Snake implements Serializable {
 
             int headX = snake.get(0).getPosition().x;
             int headY = snake.get(0).getPosition().y;
-            int foodX = food.getPos().x;
-            int foodY = food.getPos().y;
+            int foodX = food.getPosition().x;
+            int foodY = food.getPosition().y;
 
             if (headX < foodX + size && headX > foodX - (size / 2) && headY < foodY + size && headY > foodY - (size / 2)) {
                 exp += food.getSize();

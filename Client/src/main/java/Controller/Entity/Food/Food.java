@@ -12,7 +12,7 @@ public class Food implements Serializable {
     /**
      * La position de la nourriture dans le monde.
      */
-    private Point pos;
+    private Point position;
 
     /**
      * La taille de la nourriture.
@@ -38,7 +38,7 @@ public class Food implements Serializable {
      */
     public Food(Point position) {
         init();
-        this.pos = position;
+        this.position = position;
     }
 
     /**
@@ -57,7 +57,7 @@ public class Food implements Serializable {
         if (new Random().nextInt(2) == 0) {
             y = -y;
         }
-        this.pos = new Point(x, y);
+        this.position = new Point(x, y);
 
         // La couleur de la nourriture est générée de manière aléatoire.
         this.color = genererCouleurAleatoire();
@@ -77,13 +77,13 @@ public class Food implements Serializable {
      * Méthode pour définir une nouvelle position aléatoire pour la nourriture.
      */
     public void newPos() {
-        pos.x = new Random().nextInt(2560);
-        pos.y = new Random().nextInt(2560);
+        position.x = new Random().nextInt(2560);
+        position.y = new Random().nextInt(2560);
         if (new Random().nextInt(2) == 0) {
-            pos.x = -pos.x;
+            position.x = -position.x;
         }
         if (new Random().nextInt(2) == 0) {
-            pos.y = -pos.y;
+            position.y = -position.y;
         }
     }
 
@@ -110,7 +110,7 @@ public class Food implements Serializable {
      *
      * @return La position de la nourriture.
      */
-    public Point getPos() {
-        return pos;
+    public Point getPosition() {
+        return position;
     }
 }

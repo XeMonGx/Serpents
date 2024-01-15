@@ -16,7 +16,7 @@ import java.util.Random;
  */
 public class AISnake extends Snake implements Serializable {
 
-    private Point pos; // Position actuelle de l'IA Snake.
+    private Point position; // Position actuelle de l'IA Snake.
     private AISnake_etat etat; // État actuel de l'IA Snake.
     private Snake ennemi; // Référence à un serpent ennemi.
     private int compteur = 0; // Compteur pour décider du comportement de l'IA Snake.
@@ -34,7 +34,7 @@ public class AISnake extends Snake implements Serializable {
      */
     public AISnake(String username, int screenX, int screenY, MouseListenerHandler mouseListenerHandler, MouseMotionHandler mouseMotionHandler, ArrayList<Food> foodArrayList, ArrayList<Snake> snakeArrayList) {
         super(username, screenX, screenY, mouseListenerHandler, mouseMotionHandler, foodArrayList, snakeArrayList);
-        this.pos = new Point();
+        this.position = new Point();
         randomPoint();
     }
 
@@ -51,12 +51,12 @@ public class AISnake extends Snake implements Serializable {
         for (int i = 0; i < getSnake().size(); i++) {
             if (getSnake().get(i) instanceof SnakeHead) {
                 getSnake().get(i).copy(tmp);
-                getSnake().get(i).move(pos, new Point(getScreenX(), getScreenY()));
-                if (getSnake().get(i).comparePoint(pos) || compteur <= 0) {
+                getSnake().get(i).move(position, new Point(getScreenX(), getScreenY()));
+                if (getSnake().get(i).comparePoint(position) || compteur <= 0) {
                     this.etat = null;
                 } else if (etat == AISnake_etat.CHASSE) {
-                    this.pos.x = this.ennemi.getSnake().get(0).getPosXforIA();
-                    this.pos.y = this.ennemi.getSnake().get(0).getPosYforIA();
+                    this.position.x = this.ennemi.getSnake().get(0).getPosXforIA();
+                    this.position.y = this.ennemi.getSnake().get(0).getPosYforIA();
                 }
             } else {
                 Point tmp2 = new Point();
@@ -75,8 +75,8 @@ public class AISnake extends Snake implements Serializable {
      */
     private void randomPoint() {
         Random random = new Random();
-        this.pos.x = random.nextInt(getScreenX());
-        this.pos.y = random.nextInt(getScreenY());
+        this.position.x = random.nextInt(getScreenX());
+        this.position.y = random.nextInt(getScreenY());
     }
 
     /**
@@ -102,8 +102,8 @@ public class AISnake extends Snake implements Serializable {
         if (this.etat == AISnake_etat.MANGER) {
             Random random = new Random();
             int r = random.nextInt(getFoodArrayList().size());
-            this.pos.x = getFoodArrayList().get(r).getPos().x;
-            this.pos.y = getFoodArrayList().get(r).getPos().y;
+            this.position.x = getFoodArrayList().get(r).getPosition().x;
+            this.position.y = getFoodArrayList().get(r).getPosition().y;
 
         } else if (this.etat == AISnake_etat.CHASSE) {
             Random random = new Random();
@@ -113,8 +113,8 @@ public class AISnake extends Snake implements Serializable {
                 r = random.nextInt(getSnakeArrayList().size());
                 this.ennemi = getSnakeArrayList().get(r);
             }
-            this.pos.x = this.ennemi.getSnake().get(0).getPosXforIA();
-            this.pos.y = this.ennemi.getSnake().get(0).getPosYforIA();
+            this.position.x = this.ennemi.getSnake().get(0).getPosXforIA();
+            this.position.y = this.ennemi.getSnake().get(0).getPosYforIA();
         } else {
             randomPoint();
         }

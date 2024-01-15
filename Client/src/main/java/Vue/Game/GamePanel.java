@@ -156,34 +156,4 @@ public class GamePanel extends JPanel implements Runnable {
         }
         g2.dispose();
     }
-
-    // Getters pour accéder aux données du panneau
-
-    public int getScreenHeight() {
-        return screenHeight;
-    }
-
-    public int getScreenWidth() {
-        return screenWidth;
-    }
-
-    public MouseMotionHandler getMouseMotionHandler() {
-        return mouseMotionHandler;
-    }
-
-    public ArrayList<SnakeGraphics> getSnakeGraphicsArrayList() {
-        return snakeGraphicsArrayList;
-    }
-
-    public FoodsGraphics getFoodsGraphics() {
-        return foodsGraphics;
-    }
-
-    public Camera getCamera() {
-        return camera;
-    }
-
-    public MouseListenerHandler getMouseListenerHandler() {
-        return mouseListenerHandler;
-    }
 }
