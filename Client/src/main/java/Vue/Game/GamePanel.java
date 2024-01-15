@@ -16,6 +16,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * La classe GamePanel représente le panneau principal du jeu de serpents.
+ */
 public class GamePanel extends JPanel implements Runnable {
 
     private final int FPS = 60;
@@ -41,40 +44,69 @@ public class GamePanel extends JPanel implements Runnable {
     private MouseListenerHandler mouseListenerHandler = new MouseListenerHandler();
     private KeyHandler keyHandler = new KeyHandler();
 
-    public GamePanel(String username){
-        init(username);
+    /**
+     * Constructeur de la classe GamePanel.
+     *
+     * @param username Le nom d'utilisateur du joueur.
+     */
+    public GamePanel(String username) {
+        init();
+        initializeValue(username);
     }
 
-    private void init(String username){
-        this.setBackground(new Color(12,13,16));
+    /**
+     * Initialise le panneau de jeu.
+     *
+     */
+    private void init() {
+        // Configuration du panneau
+        this.setBackground(new Color(12, 13, 16));
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.addMouseMotionListener(mouseMotionHandler);
         this.addMouseListener(mouseListenerHandler);
         this.setFocusable(true);
+    }
 
-        this.playerSnake = new PlayerSnake(username, screenWidth /2, screenHeight/2, mouseListenerHandler, mouseMotionHandler, foodArrayList, snakeArrayList);
+    /**
+     * Initialise les valeurs du jeu.
+     *
+     * @param username Le nom d'utilisateur du joueur.
+     */
+    public void initializeValue(String username){
+        // Création du joueur et de la caméra
+        this.playerSnake = new PlayerSnake(username, screenWidth / 2, screenHeight / 2, mouseListenerHandler, mouseMotionHandler, foodArrayList, snakeArrayList);
         this.camera = new Camera(playerSnake, screenWidth, screenHeight);
         this.backgroundTile = new BackgroundTile(camera);
-        for (int i=0; i<1000; i++){
+
+        // Génération d'objets de nourriture
+        for (int i = 0; i < 1000; i++) {
             foodArrayList.add(new Food());
         }
         foodsGraphics = new FoodsGraphics(foodArrayList, camera);
 
+        // Ajout du joueur et des serpents IA à la liste
         this.snakeArrayList.add(playerSnake);
-        for (int i=0;i<20; i++){
-            this.snakeArrayList.add(new AISnake("", screenWidth /2, screenHeight/2, mouseListenerHandler, mouseMotionHandler, foodArrayList, snakeArrayList));
+        for (int i = 0; i < 20; i++) {
+            this.snakeArrayList.add(new AISnake("", screenWidth / 2, screenHeight / 2, mouseListenerHandler, mouseMotionHandler, foodArrayList, snakeArrayList));
         }
+
+        // Création des graphiques des serpents
         this.playerSnakeGraphics = new SnakeGraphics(playerSnake, camera);
         this.snakeGraphicsArrayList.add(this.playerSnakeGraphics);
-        for (Snake snake : snakeArrayList){
+        for (Snake snake : snakeArrayList) {
             snakeGraphicsArrayList.add(new SnakeGraphics(snake, camera));
         }
+
+        // Initialisation du compteur
         this.counter = new Counter(snakeArrayList);
     }
 
-    public void startGame(){
+    /**
+     * Démarre le jeu.
+     */
+    public void startGame() {
         this.thread = new Thread(this);
         thread.start();
         counter.start();
@@ -103,24 +135,29 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    private void update(){
-        for (SnakeGraphics snake : snakeGraphicsArrayList){
+    /**
+     * Met à jour l'état du jeu.
+     */
+    private void update() {
+        for (SnakeGraphics snake : snakeGraphicsArrayList) {
             snake.update();
         }
         playerSnake.update();
     }
 
     @Override
-    public void paintComponent(Graphics g){
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         backgroundTile.draw(g2);
         foodsGraphics.draw(g2);
-        for (SnakeGraphics snake : snakeGraphicsArrayList){
+        for (SnakeGraphics snake : snakeGraphicsArrayList) {
             snake.draw(g2);
         }
         g2.dispose();
     }
+
+    // Getters pour accéder aux données du panneau
 
     public int getScreenHeight() {
         return screenHeight;

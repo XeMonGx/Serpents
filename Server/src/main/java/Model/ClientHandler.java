@@ -9,7 +9,10 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class ClientHandler implements Runnable{
+/**
+ * La classe ClientHandler gère la communication avec un client.
+ */
+public class ClientHandler implements Runnable {
 
     private static ArrayList<ClientHandler> clientHandlerArrayList = new ArrayList<>();
     private Socket socket;
@@ -19,6 +22,11 @@ public class ClientHandler implements Runnable{
     private static ArrayList<Snake> snakeArrayList = new ArrayList<>();
     private static ArrayList<Food> foodArrayList = new ArrayList<>();
 
+    /**
+     * Constructeur de la classe ClientHandler.
+     *
+     * @param socket Le socket du client.
+     */
     public ClientHandler(Socket socket) {
         try {
             this.socket = socket;
@@ -26,30 +34,41 @@ public class ClientHandler implements Runnable{
             this.oos = new ObjectOutputStream(socket.getOutputStream());
             this.snake = (Snake) ois.readObject();
             snakeArrayList.add(snake);
-            for (int i=0; i<1000; i++){
+
+            // Initialisation de la liste de nourriture
+            for (int i = 0; i < 1000; i++) {
                 foodArrayList.add(new Food());
             }
+
             clientHandlerArrayList.add(this);
         } catch (IOException | ClassNotFoundException e) {
             closeEverything(socket, ois, oos);
         }
     }
 
+    /**
+     * Exécute la logique de communication avec le client.
+     */
     @Override
     public void run() {
-        while(socket.isConnected()){
+        while (socket.isConnected()) {
             try {
                 broadcast((Snake) ois.readObject());
-            } catch (IOException | ClassNotFoundException e){
+            } catch (IOException | ClassNotFoundException e) {
                 closeEverything(socket, ois, oos);
             }
         }
     }
 
-    public void broadcast(Snake snake){
-        for (ClientHandler clientHandler : clientHandlerArrayList){
+    /**
+     * Diffuse la mise à jour de la liste des serpents et de la nourriture à tous les clients connectés.
+     *
+     * @param snake Le serpent mis à jour.
+     */
+    public void broadcast(Snake snake) {
+        for (ClientHandler clientHandler : clientHandlerArrayList) {
             try {
-                if(clientHandler.snake.getUsername().equals(snake.getUsername())){
+                if (clientHandler.snake.getUsername().equals(snake.getUsername())) {
                     this.snake = snake;
                     clientHandler.oos.writeObject(snakeArrayList);
                     clientHandler.oos.flush();
@@ -62,11 +81,21 @@ public class ClientHandler implements Runnable{
         }
     }
 
-    public void removeClientHandler(){
+    /**
+     * Supprime l'instance de ClientHandler de la liste.
+     */
+    public void removeClientHandler() {
         clientHandlerArrayList.remove(this);
     }
 
-    public void closeEverything(Socket socket, ObjectInputStream ois, ObjectOutputStream oos){
+    /**
+     * Ferme le socket, les flux d'entrée et de sortie.
+     *
+     * @param socket Le socket à fermer.
+     * @param ois    Le flux d'entrée à fermer.
+     * @param oos    Le flux de sortie à fermer.
+     */
+    public void closeEverything(Socket socket, ObjectInputStream ois, ObjectOutputStream oos) {
         removeClientHandler();
         try {
             if (socket == null) socket.close();
@@ -76,5 +105,4 @@ public class ClientHandler implements Runnable{
             e.printStackTrace();
         }
     }
-
 }

@@ -4,13 +4,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
 
+/**
+ * La classe KeyHandler gère les événements du clavier dans le jeu.
+ * Elle implémente l'interface KeyListener pour détecter les actions du clavier.
+ */
 public class KeyHandler implements KeyListener, Serializable {
-
-    public int count = 1;
 
     @Override
     public void keyTyped(KeyEvent e) {
-        count++;
+
     }
 
     @Override
