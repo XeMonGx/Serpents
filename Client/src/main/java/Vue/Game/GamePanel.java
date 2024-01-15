@@ -1,9 +1,9 @@
 package Vue.Game;
 
-import Model.Entity.Food.Food;
-import Model.Entity.Snake.Snake;
-import Model.Entity.Snake.Variation.AISnake;
-import Model.Entity.Snake.Variation.PlayerSnake;
+import Controller.Entity.Food.Food;
+import Controller.Entity.Snake.Snake;
+import Controller.Entity.Snake.Variation.AISnake;
+import Controller.Entity.Snake.Variation.PlayerSnake;
 import Controller.KeyHandler;
 import Controller.MouseListenerHandler;
 import Controller.MouseMotionHandler;
@@ -147,18 +147,43 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     protected void paintComponent(Graphics g) {
-        try {
-            super.paintComponent(g);
-            Graphics2D g2 = (Graphics2D) g;
-            backgroundTile.draw(g2);
-            foodsGraphics.draw(g2);
-            for (SnakeGraphics snake : snakeGraphicsArrayList) {
-                snake.draw(g2);
-            }
-            g2.dispose();
-        }catch (Exception e){
-
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+        backgroundTile.draw(g2);
+        foodsGraphics.draw(g2);
+        for (SnakeGraphics snake : snakeGraphicsArrayList) {
+            snake.draw(g2);
         }
+        g2.dispose();
+    }
 
+    // Getters pour accéder aux données du panneau
+
+    public int getScreenHeight() {
+        return screenHeight;
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public MouseMotionHandler getMouseMotionHandler() {
+        return mouseMotionHandler;
+    }
+
+    public ArrayList<SnakeGraphics> getSnakeGraphicsArrayList() {
+        return snakeGraphicsArrayList;
+    }
+
+    public FoodsGraphics getFoodsGraphics() {
+        return foodsGraphics;
+    }
+
+    public Camera getCamera() {
+        return camera;
+    }
+
+    public MouseListenerHandler getMouseListenerHandler() {
+        return mouseListenerHandler;
     }
 }

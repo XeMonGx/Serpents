@@ -52,7 +52,7 @@ public class MouseListenerHandler implements MouseListener, Serializable {
      *
      * @return true si le bouton est enfoncé, false sinon.
      */
-    public boolean isPressed() {
+    public boolean getPressed() {
         return pressed;
     }
 }

@@ -1,7 +1,7 @@
 package Vue.Game;
 
-import Model.Entity.Snake.Variation.AISnake;
-import Model.Entity.Snake.Snake;
+import Controller.Entity.Snake.Variation.AISnake;
+import Controller.Entity.Snake.Snake;
 
 import java.util.ArrayList;
 import java.util.Timer;
