@@ -5,6 +5,7 @@ import Controller.Entity.Food.Food;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * La classe FoodsGraphics est responsable du dessin de la nourriture sur l'écran.
@@ -31,15 +32,23 @@ public class FoodsGraphics {
      * @param g2 Le contexte graphique 2D utilisé pour dessiner.
      */
     public void draw(Graphics2D g2) {
-        for (Food f : foodArrayList) {
+        Iterator<Food> iterator = foodArrayList.iterator();
+        while (iterator.hasNext()) {
+            Food f = iterator.next();
             g2.setColor(f.getColor());
 
-            // Convertir les coordonnées mondiales en coordonnées d'écran.
-            int screenX = f.getPosition().x - camera.getWorldX() + camera.getScreenX();
-            int screenY = f.getPosition().y - camera.getWorldY() + camera.getScreenY();
+            // Générer des positions aléatoires pour les cercles
+            int worldX = f.getPosition().x;
+            int worldY = f.getPosition().y;
 
-            // Dessiner le cercle représentant la nourriture.
-            g2.fillOval(screenX, screenY, f.getSize(), f.getSize());
+            int screenX = worldX - camera.getWorldX() + camera.getScreenX();
+            int screenY = worldY - camera.getWorldY() + camera.getScreenY();
+
+            // Générer un rayon aléatoire pour les cercles
+            int rayon = f.getSize();
+
+            // Dessiner le cercle
+            g2.fillOval(screenX, screenY, rayon, rayon);
         }
     }
 }

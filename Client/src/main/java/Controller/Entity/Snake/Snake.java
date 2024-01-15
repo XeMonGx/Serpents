@@ -142,7 +142,10 @@ public class Snake implements Serializable {
                 for (Segment segment : snake.getSnake()) {
                     if (isCollision(segment)) {
                         for (Segment seg : this.snake) {
-                            foodArrayList.add(new Food(seg.getPosition()));
+                            Random r = new Random();
+                            if(r.nextInt(2) == 0 && foodArrayList.size() < 1200) {
+                                foodArrayList.add(new Food(seg.getPosition()));
+                            }
                         }
                         init();
                     }
@@ -166,7 +169,8 @@ public class Snake implements Serializable {
 
             if (headX < foodX + size && headX > foodX - (size / 2) && headY < foodY + size && headY > foodY - (size / 2)) {
                 exp += food.getSize();
-                foodArrayList.get(i).newPos();
+                foodArrayList.remove(i);
+                foodArrayList.add(new Food());
             }
         }
     }
