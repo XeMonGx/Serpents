@@ -74,20 +74,6 @@ public class Food implements Serializable {
     }
 
     /**
-     * Méthode pour définir une nouvelle position aléatoire pour la nourriture.
-     */
-    public void newPos() {
-        position.x = new Random().nextInt(2560);
-        position.y = new Random().nextInt(2560);
-        if (new Random().nextInt(2) == 0) {
-            position.x = -position.x;
-        }
-        if (new Random().nextInt(2) == 0) {
-            position.y = -position.y;
-        }
-    }
-
-    /**
      * Méthode pour obtenir la couleur de la nourriture.
      *
      * @return La couleur de la nourriture.

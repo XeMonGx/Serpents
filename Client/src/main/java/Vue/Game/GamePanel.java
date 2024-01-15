@@ -147,13 +147,18 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        backgroundTile.draw(g2);
-        foodsGraphics.draw(g2);
-        for (SnakeGraphics snake : snakeGraphicsArrayList) {
-            snake.draw(g2);
+        try {
+            super.paintComponent(g);
+            Graphics2D g2 = (Graphics2D) g;
+            backgroundTile.draw(g2);
+            foodsGraphics.draw(g2);
+            for (SnakeGraphics snake : snakeGraphicsArrayList) {
+                snake.draw(g2);
+            }
+            g2.dispose();
+        }catch (Exception e){
+
         }
-        g2.dispose();
+
     }
 }
