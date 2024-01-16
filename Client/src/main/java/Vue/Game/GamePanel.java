@@ -1,9 +1,9 @@
 package Vue.Game;
 
-import Controller.Entity.Food.Food;
-import Controller.Entity.Snake.Snake;
-import Controller.Entity.Snake.Variation.AISnake;
-import Controller.Entity.Snake.Variation.PlayerSnake;
+import Model.Entity.Food.Food;
+import Model.Entity.Snake.Snake;
+import Model.Entity.Snake.Variation.AISnake;
+import Model.Entity.Snake.Variation.PlayerSnake;
 import Controller.KeyHandler;
 import Controller.MouseListenerHandler;
 import Controller.MouseMotionHandler;

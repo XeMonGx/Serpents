@@ -1,8 +1,8 @@
 package Vue.Entity.Snake;
 
 import Controller.Camera;
-import Controller.Entity.Snake.Snake;
-import Controller.Entity.Snake.Variation.AISnake;
+import Model.Entity.Snake.Snake;
+import Model.Entity.Snake.Variation.AISnake;
 
 import java.awt.*;
 
