@@ -1,7 +1,7 @@
 package Model;
 
-import Controller.Entity.Food.Food;
-import Controller.Entity.Snake.Snake;
+import Model.Entity.Food.Food;
+import Model.Entity.Snake.Snake;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

@@ -1,7 +1,7 @@
 package Vue.Entity.Food;
 
 import Controller.Camera;
-import Controller.Entity.Food.Food;
+import Model.Entity.Food.Food;
 
 import java.awt.*;
 import java.util.ArrayList;

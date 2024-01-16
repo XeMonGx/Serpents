@@ -1,4 +1,4 @@
-package Controller.Entity.Snake.Variation;
+package Model.Entity.Snake.Variation;
 
 import java.io.Serializable;
 

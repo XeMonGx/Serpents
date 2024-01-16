@@ -1,6 +1,6 @@
-package Controller.Entity.Snake;
+package Model.Entity.Snake;
 
-import Controller.Entity.Food.Food;
+import Model.Entity.Food.Food;
 import Controller.MouseListenerHandler;
 import Controller.MouseMotionHandler;
 

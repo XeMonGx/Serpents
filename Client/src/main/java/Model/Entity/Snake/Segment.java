@@ -1,4 +1,4 @@
-package Controller.Entity.Snake;
+package Model.Entity.Snake;
 
 import java.awt.*;
 import java.io.Serializable;

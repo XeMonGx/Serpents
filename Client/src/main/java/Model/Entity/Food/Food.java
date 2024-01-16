@@ -1,4 +1,4 @@
-package Controller.Entity.Food;
+package Model.Entity.Food;
 
 import java.awt.*;
 import java.io.Serializable;

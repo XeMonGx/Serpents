@@ -1,6 +1,6 @@
 package Controller;
 
-import Controller.Entity.Snake.Snake;
+import Model.Entity.Snake.Snake;
 
 import java.io.Serializable;
 
