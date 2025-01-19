@@ -1,6 +1,6 @@
 package Vue.Entity.Food;
 
-import Controller.Camera;
+import Model.Camera;
 import Model.Entity.Food.Food;
 
 import java.awt.*;

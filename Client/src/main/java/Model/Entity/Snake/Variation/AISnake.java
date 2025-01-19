@@ -24,16 +24,10 @@ public class AISnake extends Snake implements Serializable {
     /**
      * Constructeur de la classe AISnake.
      *
-     * @param username             Nom d'utilisateur de l'IA Snake.
-     * @param screenX              Position x de l'écran du jeu.
-     * @param screenY              Position y de l'écran du jeu.
-     * @param mouseListenerHandler Gestionnaire des événements de la souris.
-     * @param mouseMotionHandler   Gestionnaire des mouvements de la souris.
-     * @param foodArrayList        Liste des objets de nourriture dans le jeu.
-     * @param snakeArrayList       Liste des serpents dans le jeu.
+     * @param builder Constructeur de la classe de base Snake.
      */
-    public AISnake(String username, int screenX, int screenY, MouseListenerHandler mouseListenerHandler, MouseMotionHandler mouseMotionHandler, ArrayList<Food> foodArrayList, ArrayList<Snake> snakeArrayList) {
-        super(username, screenX, screenY, mouseListenerHandler, mouseMotionHandler, foodArrayList, snakeArrayList);
+    public AISnake(SnakeBuilder builder) {
+        super(builder);
         this.position = new Point();
         randomPoint();
     }

@@ -2,13 +2,12 @@ package Vue.Game;
 
 import Model.Entity.Food.Food;
 import Model.Entity.Snake.Snake;
-import Model.Entity.Snake.Variation.AISnake;
 import Model.Entity.Snake.Variation.PlayerSnake;
 import Controller.KeyHandler;
 import Controller.MouseListenerHandler;
 import Controller.MouseMotionHandler;
 import Vue.Background.BackgroundTile;
-import Controller.Camera;
+import Model.Camera;
 import Vue.Entity.Food.FoodsGraphics;
 import Vue.Entity.Snake.SnakeGraphics;
 
@@ -76,7 +75,8 @@ public class GamePanel extends JPanel implements Runnable {
      */
     public void initializeValue(String username){
         // Création du joueur et de la caméra
-        this.playerSnake = new PlayerSnake(username, screenWidth / 2, screenHeight / 2, mouseListenerHandler, mouseMotionHandler, foodArrayList, snakeArrayList);
+        Snake.SnakeBuilder builder = new Snake.SnakeBuilder(username, camera.getScreenX(), camera.getScreenY(), foodArrayList, snakeArrayList);
+        this.playerSnake = new PlayerSnake(builder);
         this.camera = new Camera(playerSnake, screenWidth, screenHeight);
         this.backgroundTile = new BackgroundTile(camera);
 
@@ -89,7 +89,7 @@ public class GamePanel extends JPanel implements Runnable {
         // Ajout du joueur et des serpents IA à la liste
         this.snakeArrayList.add(playerSnake);
         for (int i = 0; i < 20; i++) {
-            this.snakeArrayList.add(new AISnake("", screenWidth / 2, screenHeight / 2, mouseListenerHandler, mouseMotionHandler, foodArrayList, snakeArrayList));
+            this.snakeArrayList.add();
         }
 
         // Création des graphiques des serpents

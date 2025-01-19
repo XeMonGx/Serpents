@@ -9,14 +9,17 @@ public class GameMap {
 
     private final int width = 5120;
     private final int height = 5120;
-    private ArrayList<Food> foodArrayList = new ArrayList<>();
-    private ArrayList<Snake> snakeArrayList = new ArrayList<>();
+    private final int screenWidth = 1200;
+    private final int screenHeight = 800;
+    private static ArrayList<Food> foodArrayList = new ArrayList<>();
+    private static ArrayList<Snake> snakeArrayList = new ArrayList<>();
 
     public GameMap() {
 
     }
 
     public void init() {
+        
         this.foodArrayList.clear();
         this.snakeArrayList.clear();
     }

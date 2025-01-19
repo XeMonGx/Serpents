@@ -1,6 +1,6 @@
 package Vue.Entity.Snake;
 
-import Controller.Camera;
+import Model.Camera;
 import Model.Entity.Snake.Snake;
 import Model.Entity.Snake.Variation.AISnake;
 

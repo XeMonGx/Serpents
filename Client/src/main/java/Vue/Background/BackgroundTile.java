@@ -1,7 +1,6 @@
 package Vue.Background;
 
-import Controller.Camera;
-import Vue.Game.GamePanel;
+import Model.Camera;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

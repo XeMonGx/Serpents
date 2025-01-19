@@ -21,7 +21,7 @@ public class Snake implements Serializable {
     private int size; // Taille initiale des segments du serpent.
     private int speed; // Vitesse du serpent.
     private int length; // Longueur du serpent.
-    private final Color color; // Couleur du serpent.
+    private Color color; // Couleur du serpent.
     private int screenX; // Position x de l'écran du jeu.
     private int screenY; // Position y de l'écran du jeu.
     private MouseListenerHandler mouseListenerHandler; // Gestionnaire des événements de la souris.
@@ -32,36 +32,29 @@ public class Snake implements Serializable {
     /**
      * Constructeur de la classe Snake.
      *
-     * @param username             Nom d'utilisateur du joueur.
-     * @param screenX              Position x de l'écran du jeu.
-     * @param screenY              Position y de l'écran du jeu.
-     * @param mouseListenerHandler Gestionnaire des événements de la souris.
-     * @param mouseMotionHandler   Gestionnaire des mouvements de la souris.
-     * @param foodArrayList        Liste des objets de nourriture dans le jeu.
-     * @param snakeArrayList       Liste des serpents dans le jeu.
+     * @param builder
      */
-    public Snake(String username, int screenX, int screenY, MouseListenerHandler mouseListenerHandler, MouseMotionHandler mouseMotionHandler, ArrayList<Food> foodArrayList, ArrayList<Snake> snakeArrayList) {
-        this.username = username;
-        this.snake = new ArrayList<>();
-        this.color = genererCouleurAleatoire();
-        this.mouseListenerHandler = mouseListenerHandler;
-        this.mouseMotionHandler = mouseMotionHandler;
-        this.foodArrayList = foodArrayList;
-        this.snakeArrayList = snakeArrayList;
-        this.screenX = screenX;
-        this.screenY = screenY;
-        this.init();
+    public Snake(SnakeBuilder builder) {
+        this.username = builder.username;
+        this.snake = builder.snake;
+        this.screenX = builder.screenX;
+        this.screenY = builder.screenY;
+        this.mouseListenerHandler = builder.mouseListenerHandler;
+        this.mouseMotionHandler = builder.mouseMotionHandler;
+        this.foodArrayList = builder.foodArrayList;
+        this.snakeArrayList = builder.snakeArrayList;
+        init();
     }
 
     /**
      * Méthode d'initialisation du serpent.
      */
     private void init() {
-        this.snake.clear();
         this.exp = 0;
         this.size = 32;
         this.speed = 2;
         this.length = 1;
+        this.color = genererCouleurAleatoire();
 
         Random random = new Random();
         int posX = random.nextInt(1200);
@@ -78,13 +71,7 @@ public class Snake implements Serializable {
     public void update() {
         Point tmp = new Point();
         for (int i = 0; i < snake.size(); i++) {
-            if (mouseListenerHandler.isPressed()) { // Acceleration du serpent
-                speed = 5;
-                snake.get(i).setSpeed(5);
-            } else {
-                speed = 2;
-                snake.get(i).setSpeed(2);
-            }
+            speedBoost(i);
             if (snake.get(i) instanceof SnakeHead) {
                 snake.get(i).copy(tmp);
                 snake.get(i).move(mouseMotionHandler.getMousePos(), new Point(screenX, screenY));
@@ -99,6 +86,20 @@ public class Snake implements Serializable {
         dead();
         eatFood();
         grow(tmp);
+    }
+
+    /**
+     * Méthode pour accélérer le serpent.
+     * @param i
+     */
+    public void speedBoost(int i){
+        if (mouseListenerHandler.isPressed()) { // Acceleration du serpent
+            speed = 5;
+            snake.get(i).setSpeed(5);
+        } else {
+            speed = 2;
+            snake.get(i).setSpeed(2);
+        }
     }
 
     /**
@@ -206,6 +207,56 @@ public class Snake implements Serializable {
     private Color genererCouleurAleatoire() {
         Random random = new Random();
         return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+    }
+
+    public static class SnakeBuilder{
+
+        private List<Segment> snake; // Liste des segments constituant le serpent.
+        private final String username; // Nom d'utilisateur du joueur.
+        private int screenX; // Position x de l'écran du jeu.
+        private int screenY; // Position y de l'écran du jeu.
+        private MouseListenerHandler mouseListenerHandler; // Gestionnaire des événements de la souris.
+        private MouseMotionHandler mouseMotionHandler; // Gestionnaire des mouvements de la souris.
+        private ArrayList<Food> foodArrayList; // Liste des nourritures dans le jeu.
+        private ArrayList<Snake> snakeArrayList; // Liste des serpents dans le jeu.
+
+        /**
+         * Constructeur de la classe SnakeBuilder.
+         *
+         * @param username Nom d'utilisateur du joueur.
+         * @param screenX  Position x de l'écran du jeu.
+         * @param screenY  Position y de l'écran du jeu.
+         * @param foodArrayList Liste des objets de nourriture dans le jeu.
+         * @param snakeArrayList Liste des serpents dans le jeu.
+         */
+        public SnakeBuilder(String username, int screenX, int screenY, ArrayList<Food> foodArrayList, ArrayList<Snake> snakeArrayList){
+            this.username = username;
+            this.snake = new ArrayList<>();
+            this.foodArrayList = foodArrayList;
+            this.snakeArrayList = snakeArrayList;
+            this.screenX = screenX;
+            this.screenY = screenY;
+        }
+
+        /**
+         * Methode modifier gestionnaire des événements de la souris.
+         * @param mouseListenerHandler
+         * @return SnakeBuilder
+         */
+        public SnakeBuilder setMouseListenerHandler(MouseListenerHandler mouseListenerHandler){
+            this.mouseListenerHandler = mouseListenerHandler;
+            return this;
+        }
+
+        /**
+         * Methode modifier gestionnaire des mouvements de la souris.
+         * @param mouseMotionHandler
+         * @return SnakeBuilder
+         */
+        public SnakeBuilder setMouseMotionHandler(MouseMotionHandler mouseMotionHandler){
+            this.mouseMotionHandler = mouseMotionHandler;
+            return this;
+        }
     }
 
     /**
